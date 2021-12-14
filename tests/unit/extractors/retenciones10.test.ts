@@ -38,6 +38,22 @@ describe('Extractors/Retenciones10', () => {
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
 
+    test('format retenciones10 mexican on xml rfc with ampersand', () => {
+        const expectedRetenciones10 = [
+            '?re=Ñ&amp;A010101AAA',
+            '&rr=Ñ&amp;A991231AA0',
+            '&tt=0002000000.000000',
+            '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
+        ].join('');
+        const parameters = {
+            re: 'Ñ&A010101AAA',
+            rr: 'Ñ&A991231AA0',
+            tt: '2000000.00',
+            id: 'fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
+        };
+        expect(extractor.format(parameters)).toBe(expectedRetenciones10);
+    });
+
     test('not matches cfdi33', () => {
         document = DomDocumentsTestCase.documentCfdi33();
         expect(extractor.matches(document)).toBeFalsy();

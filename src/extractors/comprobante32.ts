@@ -2,7 +2,7 @@ import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
 import { ExpressionExtractorInterface } from '../expression-extractor-interface';
-import { toFixed } from '../utils';
+import { html_entities, toFixed } from "../utils";
 
 export class Comprobante32 implements ExpressionExtractorInterface {
     private matchDetector: MatchDetector;
@@ -44,8 +44,8 @@ export class Comprobante32 implements ExpressionExtractorInterface {
 
     public format(values: Record<string, string>): string {
         return `?${[
-            `re=${values['re'] || ''}`,
-            `rr=${values['rr'] || ''}`,
+            `re=${html_entities(values['re'] || '')}`,
+            `rr=${html_entities(values['rr'] || '')}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
             `id=${values['id'] || ''}`,
         ].join('&')}`;

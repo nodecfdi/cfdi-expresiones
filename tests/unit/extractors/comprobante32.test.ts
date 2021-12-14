@@ -25,6 +25,22 @@ describe('Extractors/Comprobante32', () => {
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
 
+    test('format cfdi32 on xml rfc with ampersand', () => {
+        const expected32 = [
+            '?re=Ñ&amp;A010101AAA',
+            '&rr=Ñ&amp;A991231AA0',
+            '&tt=0000001234.567800',
+            '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+        ].join('');
+        const parameters = {
+            re: 'Ñ&A010101AAA',
+            rr: 'Ñ&A991231AA0',
+            tt: '1234.5678',
+            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+        };
+        expect(extractor.format(parameters)).toBe(expected32);
+    });
+
     test('not matches cfdi33', () => {
         document = DomDocumentsTestCase.documentCfdi33();
         expect(extractor.matches(document)).toBeFalsy();

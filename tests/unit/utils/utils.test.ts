@@ -1,4 +1,4 @@
-import { rtrim, toFixed } from '../../../src/utils';
+import { html_entities, rtrim, toFixed } from '../../../src/utils';
 
 describe('utils', () => {
     test('to Fixed floating point with another decimal different of 5', () => {
@@ -18,6 +18,12 @@ describe('utils', () => {
     test('rtrim with custom char', () => {
         const expected = '  0000000000.';
         const result = rtrim('  0000000000.000000', '0');
+        expect(result).toBe(expected);
+    });
+
+    test('html_entities with ampersand', () => {
+        const expected = 'today &amp; tomorrow is a good day';
+        const result = html_entities('today & tomorrow is a good day');
         expect(result).toBe(expected);
     });
 });

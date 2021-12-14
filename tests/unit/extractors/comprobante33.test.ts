@@ -28,6 +28,25 @@ describe('Extractors/Comprobante33', () => {
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
 
+    test('format cfdi33 on xml rfc with ampersand', () => {
+        const expected33 = [
+            'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx',
+            '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '&re=Ñ&amp;A010101AAA',
+            '&rr=Ñ&amp;A991231AA0',
+            '&tt=1234.5678',
+            '&fe=23456789',
+        ].join('');
+        const parameters = {
+            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            re: 'Ñ&A010101AAA',
+            rr: 'Ñ&A991231AA0',
+            tt: '1234.5678',
+            fe: '0123456789'.slice(-8),
+        };
+        expect(extractor.format(parameters)).toBe(expected33);
+    });
+
     test('not matches cfdi32', () => {
         document = DomDocumentsTestCase.documentCfdi32();
         expect(extractor.matches(document)).toBeFalsy();

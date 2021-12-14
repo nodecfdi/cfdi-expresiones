@@ -13,4 +13,14 @@ const rtrim = (str: string, chart?: string): string => {
     return (str + '').replace(re, '');
 };
 
-export { toFixed, rtrim };
+const html_entities = (str: string) => {
+    const tagsToReplace: Record<string, string> = {
+        '&': '&amp;',
+    };
+    const replaceTag = (tag: string): string => {
+        return tagsToReplace[tag] || tag;
+    };
+    return str.replace(/[&<>]/g, replaceTag);
+};
+
+export { toFixed, rtrim, html_entities };

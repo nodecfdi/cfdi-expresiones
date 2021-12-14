@@ -2,7 +2,7 @@ import { ExpressionExtractorInterface } from '../expression-extractor-interface'
 import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
-import { rtrim, toFixed } from '../utils';
+import { html_entities, rtrim, toFixed } from '../utils';
 
 export class Comprobante33 implements ExpressionExtractorInterface {
     private matchDetector: MatchDetector;
@@ -46,8 +46,8 @@ export class Comprobante33 implements ExpressionExtractorInterface {
     public format(values: Record<string, string>): string {
         return `https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?${[
             `id=${values.id || ''}`,
-            `re=${values.re || ''}`,
-            `rr=${values.rr || ''}`,
+            `re=${html_entities(values.re || '')}`,
+            `rr=${html_entities(values.rr || '')}`,
             `tt=${this.formatTotal(values.tt) || ''}`,
             `fe=${values.fe || ''}`,
         ].join('&')}`;

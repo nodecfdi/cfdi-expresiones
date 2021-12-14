@@ -3,7 +3,7 @@ import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
 import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
-import { toFixed } from '../utils';
+import { html_entities, toFixed } from '../utils';
 
 export class Retenciones10 implements ExpressionExtractorInterface {
     private matchDetector: MatchDetector;
@@ -86,8 +86,8 @@ export class Retenciones10 implements ExpressionExtractorInterface {
             values['nr'] = this.formatForeignTaxId(values['nr']);
         }
         return `?${[
-            `re=${values['re'] || ''}`,
-            `${receptorKey}=${values[receptorKey] || ''}`,
+            `re=${html_entities(values['re'] || '')}`,
+            `${receptorKey}=${html_entities(values[receptorKey] || '')}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
             `id=${values['id'] || ''}`,
         ].join('&')}`;
