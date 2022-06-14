@@ -23,6 +23,7 @@ describe('Extractors/Retenciones10', () => {
 
     test('extract retenciones10 foreign', () => {
         const expectedExpression = [
+            'https://prodretencionverificacion.clouda.sat.gob.mx/',
             '?re=AAA010101AAA&nr=00000000001234567890&tt=0002000000.000000',
             '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
         ].join('');
@@ -32,6 +33,7 @@ describe('Extractors/Retenciones10', () => {
     test('extract retenciones10 mexican', () => {
         document = DomDocumentsTestCase.documentRet10Mexican();
         const expectedExpression = [
+            'https://prodretencionverificacion.clouda.sat.gob.mx/',
             '?re=AAA010101AAA&rr=SUL010720JN8&tt=0002000000.000000',
             '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
         ].join('');
@@ -40,6 +42,7 @@ describe('Extractors/Retenciones10', () => {
 
     test('format retenciones10 mexican on xml rfc with ampersand', () => {
         const expectedRetenciones10 = [
+            'https://prodretencionverificacion.clouda.sat.gob.mx/',
             '?re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
             '&tt=0002000000.000000',

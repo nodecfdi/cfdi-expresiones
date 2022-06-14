@@ -5,20 +5,20 @@ import { DomHelper } from '../internal/dom-helper';
 import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
 import { html_entities, toFixed } from '../utils';
 
-export class Retenciones10 implements ExpressionExtractorInterface {
+export class Retenciones20 implements ExpressionExtractorInterface {
     private matchDetector: MatchDetector;
 
     constructor() {
         this.matchDetector = new MatchDetector(
-            'http://www.sat.gob.mx/esquemas/retencionpago/1',
+            'http://www.sat.gob.mx/esquemas/retencionpago/2',
             'retenciones:Retenciones',
             'Version',
-            '1.0'
+            '2.0'
         );
     }
 
     public uniqueName(): string {
-        return 'RET10';
+        return 'RET20';
     }
 
     public matches(document: Document): boolean {
@@ -27,7 +27,7 @@ export class Retenciones10 implements ExpressionExtractorInterface {
 
     public obtain(document: Document): Record<string, string> {
         if (!this.matches(document)) {
-            throw new UnmatchedDocumentException('The document is not a RET 1.0');
+            throw new UnmatchedDocumentException('The document is not a RET 2.0');
         }
         const helper = new DomHelper(document);
 
@@ -37,14 +37,14 @@ export class Retenciones10 implements ExpressionExtractorInterface {
             'tfd:TimbreFiscalDigital',
             'UUID'
         );
-        const rfcEmisor = helper.getAttribute('retenciones:Retenciones', 'retenciones:Emisor', 'RFCEmisor');
+        const rfcEmisor = helper.getAttribute('retenciones:Retenciones', 'retenciones:Emisor', 'RfcE');
 
         let rfcReceptorKey = 'rr';
         let rfcReceptor = helper.findAttribute(
             'retenciones:Retenciones',
             'retenciones:Receptor',
             'retenciones:Nacional',
-            'RFCRecep'
+            'RfcR'
         );
 
         if (!rfcReceptor) {
@@ -53,19 +53,19 @@ export class Retenciones10 implements ExpressionExtractorInterface {
                 'retenciones:Retenciones',
                 'retenciones:Receptor',
                 'retenciones:Extranjero',
-                'NumRegIdTrib'
+                'NumRegIdTribR'
             );
         }
 
         if (!rfcReceptor) {
-            throw new AttributeNotFoundException('RET 1.0 receiver tax id cannot be found');
+            throw new AttributeNotFoundException('RET 2.0 receiver tax id cannot be found');
         }
 
         if (rfcReceptorKey === 'nr') {
             rfcReceptor = rfcReceptor.padStart(20, '0');
         }
 
-        const total = helper.getAttribute('retenciones:Retenciones', 'retenciones:Totales', 'montoTotOperacion');
+        const total = helper.getAttribute('retenciones:Retenciones', 'retenciones:Totales', 'MontoTotOperacion');
 
         return {
             re: rfcEmisor,

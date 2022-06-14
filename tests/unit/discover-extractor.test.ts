@@ -1,7 +1,11 @@
-import { DiscoverExtractor } from "../../src";
-import { Comprobante33 } from '../../src/extractors/comprobante33';
-import { Comprobante32 } from '../../src/extractors/comprobante32';
-import { Retenciones10 } from '../../src/extractors/retenciones10';
+import {
+    Comprobante40,
+    Comprobante32,
+    Comprobante33,
+    Retenciones10,
+    Retenciones20,
+    DiscoverExtractor,
+} from '../../src';
 import { Xml } from '@nodecfdi/cfdiutils-common';
 import { UnmatchedDocumentException } from '../../src/exceptions/unmatched-document-exception';
 import { DomDocumentsTestCase } from './dom-documents-test-case';
@@ -9,10 +13,12 @@ import { DomDocumentsTestCase } from './dom-documents-test-case';
 describe('DiscoverExtractor', () => {
     let extractor: DiscoverExtractor;
     const providerExpressionOnValidDocuments: [string, Document, string][] = [
+        ['cfdi40', DomDocumentsTestCase.documentCfdi40(), 'CFDI40'],
         ['cfdi33', DomDocumentsTestCase.documentCfdi33(), 'CFDI33'],
         ['cfdi32', DomDocumentsTestCase.documentCfdi32(), 'CFDI32'],
         ['ret10mexican', DomDocumentsTestCase.documentRet10Mexican(), 'RET10'],
         ['ret10foreign', DomDocumentsTestCase.documentRet10Foreign(), 'RET10'],
+        ['ret20mexican', DomDocumentsTestCase.documentRet20Mexican(), 'RET20'],
     ];
 
     beforeEach(() => {
@@ -25,10 +31,12 @@ describe('DiscoverExtractor', () => {
 
     test('generic extractor uses default', () => {
         const currentExpressionExtractors = extractor.currentExpressionExtractors();
-        expect(currentExpressionExtractors).toHaveLength(3);
+        expect(currentExpressionExtractors).toHaveLength(5);
         expect(currentExpressionExtractors).toStrictEqual([
+            new Comprobante40(),
             new Comprobante33(),
             new Comprobante32(),
+            new Retenciones20(),
             new Retenciones10(),
         ]);
     });

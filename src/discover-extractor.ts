@@ -3,6 +3,8 @@ import { Comprobante33 } from './extractors/comprobante33';
 import { Comprobante32 } from './extractors/comprobante32';
 import { Retenciones10 } from './extractors/retenciones10';
 import { UnmatchedDocumentException } from './exceptions/unmatched-document-exception';
+import { Comprobante40 } from './extractors/comprobante40';
+import { Retenciones20 } from './extractors/retenciones20';
 
 export class DiscoverExtractor implements ExpressionExtractorInterface {
     private readonly expressions: ExpressionExtractorInterface[];
@@ -15,7 +17,13 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
     }
 
     public defaultExtractors(): ExpressionExtractorInterface[] {
-        return [new Comprobante33(), new Comprobante32(), new Retenciones10()];
+        return [
+            new Comprobante40(),
+            new Comprobante33(),
+            new Comprobante32(),
+            new Retenciones20(),
+            new Retenciones10(),
+        ];
     }
 
     public currentExpressionExtractors(): ExpressionExtractorInterface[] {
