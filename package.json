@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdi-expresiones",
-    "version": "1.1.1",
+    "version": "2.0.0",
     "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
     "main": "dist/cfdi-expresiones.cjs.js",
     "module": "dist/cfdi-expresiones.esm.js",
@@ -17,9 +17,11 @@
     "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
     "license": "MIT",
     "keywords": [
+        "CFDI 4.0",
         "CFDI 3.2",
         "CFDI 3.3",
         "RET 1.0",
+        "RET 2.0",
         "Expresion",
         "SAT",
         "Codigo QR"
@@ -55,6 +57,6 @@
         "typescript": "^4.5.2"
     },
     "dependencies": {
-        "@nodecfdi/cfdiutils-common": "^0.3.0"
+        "@nodecfdi/cfdiutils-common": "^1.0.1"
     }
 }

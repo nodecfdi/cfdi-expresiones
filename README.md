@@ -14,13 +14,13 @@
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord&style=flat-square
 [discord]: https://discord.gg/aFGYXvX
 
-> Library to generate expressions for CFDI 3.3, CFDI 3.2 and RET 1.0
+> Library to generate expressions for CFDI 4.0, CFDI 3.3, CFDI 3.2, RET 2.0 and RET 1.0
 
 :us: The documentation of this project is in spanish as this is the natural language for intended audience.
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
-Esta librería contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3 y RET 1.0 de acuerdo a la
+Esta librería contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la
 información técnica del SAT en el Anexo 20. Librería inspirada por la versión para
 php https://github.com/phpcfdi/cfdi-expresiones
 
@@ -29,7 +29,7 @@ Estas expresiones se utilizan principalmente para dos motivos:
 1. Generar el código QR de una representación impresa de un CFDI o RET.
 2. Consultar el WebService del SAT de estado de un CFDI.
 
-Ejemplo de expresión para CFDI 3.3:
+Ejemplo de expresión para CFDI 3.3 && CFDI 4.0:
 
 ```text
 https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC&re=POT9207213D6&rr=DIM8701081LA&tt=2010.01&fe=/OAgdg==
@@ -41,10 +41,10 @@ Ejemplo de expresión para CFDI 3.2:
 ?re=AAA010101AAA&rr=COSC8001137NA&tt=0000001234.567800&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC
 ```
 
-Ejemplo de expresión para RET 1.0:
+Ejemplo de expresión para RET 1.0 && RET 2.0:
 
 ```text
-?&re=XAXX010101000&nr=12345678901234567890%tt=1234567890.123456&id=ad662d33-6934-459c-a128-BDf0393f0f44
+https://prodretencionverificacion.clouda.sat.gob.mx/?&re=XAXX010101000&nr=12345678901234567890%tt=1234567890.123456&id=ad662d33-6934-459c-a128-BDf0393f0f44
 ```
 
 ## Instalación
