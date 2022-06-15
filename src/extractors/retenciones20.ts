@@ -66,12 +66,14 @@ export class Retenciones20 implements ExpressionExtractorInterface {
         }
 
         const total = helper.getAttribute('retenciones:Retenciones', 'retenciones:Totales', 'MontoTotOperacion');
+        const sello = helper.getAttribute('retenciones:Retenciones', 'Sello').slice(-8);
 
         return {
+            id: uuid,
             re: rfcEmisor,
             [rfcReceptorKey]: rfcReceptor,
             tt: total,
-            id: uuid,
+            fe: sello,
         };
     }
 
@@ -86,10 +88,11 @@ export class Retenciones20 implements ExpressionExtractorInterface {
             values['nr'] = this.formatForeignTaxId(values['nr']);
         }
         return `https://prodretencionverificacion.clouda.sat.gob.mx/?${[
+            `id=${values['id'] || ''}`,
             `re=${html_entities(values['re'] || '')}`,
             `${receptorKey}=${html_entities(values[receptorKey] || '')}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
-            `id=${values['id'] || ''}`,
+            `fe=${values['fe'] || ''}`,
         ].join('&')}`;
     }
 
@@ -98,6 +101,6 @@ export class Retenciones20 implements ExpressionExtractorInterface {
     }
 
     public formatTotal(input: string): string {
-        return toFixed(Number.parseFloat(input || '0'), 6).padStart(17, '0');
+        return toFixed(Number.parseFloat(input || '0'), 2);
     }
 }

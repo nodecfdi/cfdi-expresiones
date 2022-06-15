@@ -23,8 +23,8 @@ describe('Extractors/Retenciones20', () => {
         document = DomDocumentsTestCase.documentRet20Mexican();
         const expectedExpression = [
             'https://prodretencionverificacion.clouda.sat.gob.mx/',
-            '?re=AAA010101AAA&rr=SUL010720JN8&tt=0000004076.730000',
-            '&id=4E3DD8EA-5220-8C42-85A8-E37F9D7502F8',
+            '?id=4E3DD8EA-5220-8C42-85A8-E37F9D7502F8',
+            '&re=AAA010101AAA&rr=SUL010720JN8&tt=4076.73&fe=qsIe6w==',
         ].join('');
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
@@ -32,16 +32,18 @@ describe('Extractors/Retenciones20', () => {
     test('format retenciones20 mexican on xml rfc with ampersand', () => {
         const expectedRetenciones10 = [
             'https://prodretencionverificacion.clouda.sat.gob.mx/',
-            '?re=Ñ&amp;A010101AAA',
+            '?id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
+            '&re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
-            '&tt=0002000000.000000',
-            '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
+            '&tt=2000000.00',
+            '&fe=qsIe6w==',
         ].join('');
         const parameters = {
             re: 'Ñ&A010101AAA',
             rr: 'Ñ&A991231AA0',
             tt: '2000000.00',
             id: 'fc1b47b2-42f3-4ca2-8587-36e0a216c4d5',
+            fe: 'qsIe6w==',
         };
         expect(extractor.format(parameters)).toBe(expectedRetenciones10);
     });
