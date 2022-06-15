@@ -41,10 +41,15 @@ Ejemplo de expresión para CFDI 3.2:
 ?re=AAA010101AAA&rr=COSC8001137NA&tt=0000001234.567800&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC
 ```
 
-Ejemplo de expresión para RET 1.0 && RET 2.0:
+Ejemplo de expresión para RET 1.0:
 
 ```text
-https://prodretencionverificacion.clouda.sat.gob.mx/?&re=XAXX010101000&nr=12345678901234567890%tt=1234567890.123456&id=ad662d33-6934-459c-a128-BDf0393f0f44
+?re=XAXX010101000&nr=12345678901234567890&tt=1234567890.123456&id=ad662d33-6934-459c-a128-BDf0393f0f44
+```
+
+Ejemplo de expresión para RET 2.0:
+```text
+https://prodretencionverificacion.clouda.sat.gob.mx/?id=ad662d33-6934-459c-a128-BDf0393f0f44&re=XAXX010101000&nr=12345678901234567890&tt=1234567890.12&fe=/OAgdg==
 ```
 
 ## Instalación

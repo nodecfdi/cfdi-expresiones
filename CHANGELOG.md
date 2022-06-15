@@ -1,5 +1,13 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.0.1
+- Fix Revert change on RET 1.0 not include url base (check anexo 20 technical reference page 102)
+- Fixed order of expression on Retenciones 2.0 id is first
+- Fixed expression on Retenciones 2.0 fe is included (fe contains the last 8 characters of sello)
+- Added test of retenciones 2.0 foreign
+
+Thanks to [eclipxe13](https://github.com/eclipxe13) for review.
+
 ## 2.0.0
 
 - Update expresión for RET 1.0 include url base
