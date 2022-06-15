@@ -85,7 +85,7 @@ export class Retenciones10 implements ExpressionExtractorInterface {
             receptorKey = 'nr';
             values['nr'] = this.formatForeignTaxId(values['nr']);
         }
-        return `https://prodretencionverificacion.clouda.sat.gob.mx/?${[
+        return `?${[
             `re=${html_entities(values['re'] || '')}`,
             `${receptorKey}=${html_entities(values[receptorKey] || '')}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
