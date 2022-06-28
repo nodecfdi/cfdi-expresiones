@@ -1,7 +1,7 @@
-import { MatchDetector } from '../../../src/internal/match-detector';
+import { MatchDetector } from '~/internal/match-detector';
 import { Xml } from '@nodecfdi/cfdiutils-common';
 import { TestCase } from '../../test-case';
-import { UnmatchedDocumentException } from '../../../src/exceptions/unmatched-document-exception';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 
 describe('Internal/MatchDetector', () => {
     let detector: MatchDetector;

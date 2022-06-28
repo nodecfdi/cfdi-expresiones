@@ -1,24 +1,17 @@
-import {
-    Comprobante40,
-    Comprobante32,
-    Comprobante33,
-    Retenciones10,
-    Retenciones20,
-    DiscoverExtractor,
-} from '../../src';
+import { Comprobante40, Comprobante32, Comprobante33, Retenciones10, Retenciones20, DiscoverExtractor } from '~/index';
 import { Xml } from '@nodecfdi/cfdiutils-common';
-import { UnmatchedDocumentException } from '../../src/exceptions/unmatched-document-exception';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { DomDocumentsTestCase } from './dom-documents-test-case';
 
 describe('DiscoverExtractor', () => {
     let extractor: DiscoverExtractor;
-    const providerExpressionOnValidDocuments: [string, Document, string][] = [
-        ['cfdi40', DomDocumentsTestCase.documentCfdi40(), 'CFDI40'],
-        ['cfdi33', DomDocumentsTestCase.documentCfdi33(), 'CFDI33'],
-        ['cfdi32', DomDocumentsTestCase.documentCfdi32(), 'CFDI32'],
-        ['ret10mexican', DomDocumentsTestCase.documentRet10Mexican(), 'RET10'],
-        ['ret10foreign', DomDocumentsTestCase.documentRet10Foreign(), 'RET10'],
-        ['ret20mexican', DomDocumentsTestCase.documentRet20Mexican(), 'RET20'],
+    const providerExpressionOnValidDocuments: [Document, string][] = [
+        [DomDocumentsTestCase.documentCfdi40(), 'CFDI40'],
+        [DomDocumentsTestCase.documentCfdi33(), 'CFDI33'],
+        [DomDocumentsTestCase.documentCfdi32(), 'CFDI32'],
+        [DomDocumentsTestCase.documentRet10Mexican(), 'RET10'],
+        [DomDocumentsTestCase.documentRet10Foreign(), 'RET10'],
+        [DomDocumentsTestCase.documentRet20Mexican(), 'RET20']
     ];
 
     beforeEach(() => {
@@ -37,7 +30,7 @@ describe('DiscoverExtractor', () => {
             new Comprobante33(),
             new Comprobante32(),
             new Retenciones20(),
-            new Retenciones10(),
+            new Retenciones10()
         ]);
     });
 
@@ -54,14 +47,14 @@ describe('DiscoverExtractor', () => {
         );
     });
 
-    test.each([...providerExpressionOnValidDocuments])('expression on valid documents %s', (value, document) => {
+    test.each(providerExpressionOnValidDocuments)('expression on valid documents', (document) => {
         expect(extractor.matches(document)).toBeTruthy();
         expect(extractor.extract(document)).not.toBe('');
     });
 
-    test.each([...providerExpressionOnValidDocuments])(
-        'extract produces the same results as obtain and format on %s',
-        (value, document, type) => {
+    test.each(providerExpressionOnValidDocuments)(
+        'extract produces the same results as obtain and format',
+        (document, type) => {
             const values = extractor.obtain(document);
             const expression = extractor.format(values, type);
             const expectedExpression = extractor.extract(document);

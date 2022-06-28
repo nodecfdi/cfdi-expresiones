@@ -22,7 +22,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
             new Comprobante33(),
             new Comprobante32(),
             new Retenciones20(),
-            new Retenciones10(),
+            new Retenciones10()
         ];
     }
 
@@ -36,6 +36,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
                 return expression;
             }
         }
+
         return null;
     }
 
@@ -45,6 +46,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
                 return expression;
             }
         }
+
         return null;
     }
 
@@ -53,6 +55,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
         if (!discovered) {
             throw new UnmatchedDocumentException('Cannot discover any DiscoverExtractor that matches with document');
         }
+
         return discovered;
     }
 
@@ -66,20 +69,23 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
 
     public obtain(document: Document): Record<string, string> {
         const discovered = this.getFirstMatch(document);
+
         return discovered.obtain(document);
     }
 
     public extract(document: Document): string {
         const discovered = this.getFirstMatch(document);
+
         return discovered.extract(document);
     }
 
     public format(values: Record<string, string>, type = ''): string {
         const extractor = this.findByUniqueName(type);
-        if (!extractor) {
+        if (extractor === null) {
             throw new UnmatchedDocumentException('DiscoverExtractor requires type key with an extractor identifier');
         }
         delete values['type'];
+
         return extractor.format(values);
     }
 }

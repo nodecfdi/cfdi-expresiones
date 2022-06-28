@@ -1,8 +1,8 @@
 import { Xml } from '@nodecfdi/cfdiutils-common';
-import { DomHelper } from '../../../src/internal/dom-helper';
+import { DomHelper } from '~/internal/dom-helper';
 import { TestCase } from '../../test-case';
-import { ElementNotFoundException } from '../../../src/exceptions/element-not-found-exception';
-import { AttributeNotFoundException } from '../../../src/exceptions/attribute-not-found-exception';
+import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
+import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
 
 describe('Internal/DomHelper', () => {
     let document: Document;

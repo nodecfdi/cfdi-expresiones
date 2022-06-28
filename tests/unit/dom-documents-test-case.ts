@@ -29,4 +29,8 @@ export class DomDocumentsTestCase extends TestCase {
     public static documentRet20Foreign(): Document {
         return Xml.newDocumentContent(this.fileContentPath('ret20-foreign-fake.xml'));
     }
+
+    public static documentLoad(path: string): Document {
+        return Xml.newDocumentContent(this.fileContentPath(path));
+    }
 }

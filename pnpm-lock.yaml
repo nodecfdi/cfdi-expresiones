@@ -29,6 +29,7 @@ specifiers:
   microbundle: ^0.15.0
   prettier: ^2.7.1
   shx: ^0.3.4
+  ts-mixer: ^6.0.1
   typedoc: ^0.23.2
   typedoc-plugin-markdown: ^3.13.0
   typescript: ^4.7.4
@@ -36,6 +37,7 @@ specifiers:
 
 dependencies:
   '@nodecfdi/cfdiutils-common': 1.1.0
+  ts-mixer: 6.0.1
 
 devDependencies:
   '@babel/core': 7.18.6
@@ -7264,6 +7266,10 @@ packages:
     resolution: {integrity: sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==}
     engines: {node: '>=8'}
     dev: true
+
+  /ts-mixer/6.0.1:
+    resolution: {integrity: sha512-hvE+ZYXuINrx6Ei6D6hz+PTim0Uf++dYbK9FFifLNwQj+RwKquhQpn868yZsCtJYiclZF1u8l6WZxxKi+vv7Rg==}
+    dev: false
 
   /ts-node/10.8.1_qiyc72axg2v44xl4yovan2v55u:
     resolution: {integrity: sha512-Wwsnao4DQoJsN034wePSg5nZiw4YKXf56mPIAeD6wVmiv+RytNSWqc2f3fKvcUoV+Yn2+yocD71VOfQHbmVX4g==}
