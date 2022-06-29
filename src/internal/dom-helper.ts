@@ -54,7 +54,7 @@ export class DomHelper {
         }
         let childElement: Element | null = element;
         for (const childName of path) {
-            childElement = this.findFirstChildByName(<Element>childElement, childName);
+            childElement = this.findFirstChildByName(childElement, childName);
             if (!childElement) {
                 return null;
             }
