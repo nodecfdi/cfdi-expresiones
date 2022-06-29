@@ -1,9 +1,12 @@
-import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 
 export class MatchDetector {
     public namespaceUri: string;
+
     public elementName: string;
+
     public versionName: string;
+
     public versionValue: string;
 
     constructor(namespaceUri: string, elementName: string, versionName: string, versionValue: string) {
@@ -35,6 +38,7 @@ export class MatchDetector {
         } catch (e) {
             return false;
         }
+
         return true;
     }
 }

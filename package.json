@@ -1,21 +1,7 @@
 {
     "name": "@nodecfdi/cfdi-expresiones",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
-    "main": "dist/cfdi-expresiones.cjs.js",
-    "module": "dist/cfdi-expresiones.esm.js",
-    "browser": "dist/cfdi-expresiones.umd.js",
-    "types": "dist/cfdi-expresiones.d.ts",
-    "files": [
-        "dist"
-    ],
-    "homepage": "https://github.com/nodecfdi/cfdi-expresiones",
-    "repository": "https://github.com/nodecfdi/cfdi-expresiones",
-    "bugs": {
-        "url": "https://github.com/nodecfdi/cfdi-expresiones/issues"
-    },
-    "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
-    "license": "MIT",
     "keywords": [
         "CFDI 4.0",
         "CFDI 3.2",
@@ -26,37 +12,82 @@
         "SAT",
         "Codigo QR"
     ],
-    "scripts": {
-        "dev": "rollup -c -w",
-        "build": "rollup -c",
-        "generate": "rimraf build && rimraf dist && yarn build && yarn build:types && yarn docs && rimraf build",
-        "build:types": "tsc -p ./tsconfig.json --outDir build --declaration true && api-extractor run",
-        "lint": "eslint --ext .js,.ts .",
-        "test": "jest",
-        "docs": "typedoc src --out docs"
+    "private": false,
+    "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
+    "license": "MIT",
+    "type": "module",
+    "main": "./dist/prod/index.cjs",
+    "module": "./dist/prod/index.modern.js",
+    "umd:main": "./dist/prod/index.umd.js",
+    "exports": {
+        "require": "./dist/prod/index.cjs",
+        "development": "./dist/dev/index.modern.js",
+        "default": "./dist/prod/index.modern.js"
     },
+    "types": "dist/types/index.d.ts",
+    "files": [
+        "dist",
+        "src"
+    ],
+    "scripts": {
+        "lint": "eslint --fix \"src/**/\"",
+        "lint:check": "eslint \"src/**/\"",
+        "lint:ci": "pnpm lint:check",
+        "test": "jest --verbose --coverage",
+        "test:watch": "jest --watch",
+        "test:ci": "jest --runInBand --ci",
+        "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
+        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod/index.js",
+        "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/index.js",
+        "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
+        "gen:docs": "rm -rf ./docs && typedoc --options typedoc.cjs",
+        "prepublishOnly": "pnpm build",
+        "prepare": "husky install",
+        "release": "pnpm run prepublishOnly && pnpm changeset publish"
+    },
+    "repository": "https://github.com/nodecfdi/cfdi-expresiones",
+    "bugs": {
+        "url": "https://github.com/nodecfdi/cfdi-expresiones/issues"
+    },
+    "homepage": "https://github.com/nodecfdi/cfdi-expresiones",
     "devDependencies": {
-        "@microsoft/api-extractor": "^7.18.21",
-        "@rollup/plugin-commonjs": "^21.0.1",
-        "@rollup/plugin-node-resolve": "^13.0.6",
-        "@rollup/plugin-typescript": "^8.3.0",
-        "@types/jest": "^27.0.3",
-        "@types/node": "^16.11.12",
-        "@typescript-eslint/eslint-plugin": "^5.6.0",
-        "@typescript-eslint/parser": "^5.6.0",
-        "eslint": "^8.4.1",
-        "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-prettier": "^4.0.0",
-        "jest": "^27.4.3",
-        "prettier": "^2.5.1",
-        "rollup": "^2.60.2",
-        "ts-jest": "^27.1.1",
-        "ts-node": "^10.4.0",
-        "tslib": "^2.3.1",
-        "typedoc": "^0.22.10",
-        "typescript": "^4.5.2"
+        "@babel/core": "^7.18.6",
+        "@babel/preset-env": "^7.18.6",
+        "@babel/preset-typescript": "^7.18.6",
+        "@changesets/cli": "^2.23.0",
+        "@commitlint/cli": "^17.0.3",
+        "@commitlint/config-conventional": "^17.0.3",
+        "@types/jest": "^28.1.3",
+        "@types/node": "^18.0.0",
+        "@typescript-eslint/eslint-plugin": "^5.30.0",
+        "@typescript-eslint/parser": "^5.30.0",
+        "babel-plugin-dev-expression": "^0.2.3",
+        "babel-plugin-transform-define": "^2.0.1",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-jest": "^26.5.3",
+        "eslint-plugin-prettier": "^4.1.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-tsdoc": "^0.2.16",
+        "husky": "^8.0.1",
+        "jest": "^28.1.1",
+        "jest-mock-console": "^2.0.0",
+        "jest-watch-typeahead": "^1.1.0",
+        "lint-staged": "^13.0.3",
+        "microbundle": "^0.15.0",
+        "prettier": "^2.7.1",
+        "shx": "^0.3.4",
+        "typedoc": "^0.23.2",
+        "typedoc-plugin-markdown": "^3.13.0",
+        "typescript": "^4.7.4",
+        "zx": "^7.0.3"
     },
     "dependencies": {
-        "@nodecfdi/cfdiutils-common": "^1.0.1"
+        "@nodecfdi/cfdiutils-common": "^1.1.0",
+        "ts-mixer": "^6.0.1"
+    },
+    "engines": {
+        "node": ">= 12.0.0"
     }
 }

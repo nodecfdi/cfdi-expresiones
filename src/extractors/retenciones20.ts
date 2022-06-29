@@ -1,15 +1,23 @@
-import { ExpressionExtractorInterface } from '../expression-extractor-interface';
-import { MatchDetector } from '../internal/match-detector';
-import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
-import { DomHelper } from '../internal/dom-helper';
-import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
-import { html_entities, toFixed } from '../utils';
+import { Mixin } from 'ts-mixer';
+import { ExpressionExtractorInterface } from '~/expression-extractor-interface';
+import { MatchDetector } from '~/internal/match-detector';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { DomHelper } from '~/internal/dom-helper';
+import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
+import { FormatForeignTaxId20 } from './standards/format-foreign-tax-id20';
+import { FormatRfcXml } from './standards/format-rfc-xml';
+import { FormatTotal18x6 } from './standards/format-total18x6';
+import { FormatSelloLast8 } from './standards/format-sello-last8';
 
-export class Retenciones20 implements ExpressionExtractorInterface {
-    private matchDetector: MatchDetector;
+export class Retenciones20
+    extends Mixin(FormatForeignTaxId20, FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
+    implements ExpressionExtractorInterface
+{
+    private _matchDetector: MatchDetector;
 
     constructor() {
-        this.matchDetector = new MatchDetector(
+        super();
+        this._matchDetector = new MatchDetector(
             'http://www.sat.gob.mx/esquemas/retencionpago/2',
             'retenciones:Retenciones',
             'Version',
@@ -22,7 +30,7 @@ export class Retenciones20 implements ExpressionExtractorInterface {
     }
 
     public matches(document: Document): boolean {
-        return this.matchDetector.matches(document);
+        return this._matchDetector.matches(document);
     }
 
     public obtain(document: Document): Record<string, string> {
@@ -38,42 +46,17 @@ export class Retenciones20 implements ExpressionExtractorInterface {
             'UUID'
         );
         const rfcEmisor = helper.getAttribute('retenciones:Retenciones', 'retenciones:Emisor', 'RfcE');
-
-        let rfcReceptorKey = 'rr';
-        let rfcReceptor = helper.findAttribute(
-            'retenciones:Retenciones',
-            'retenciones:Receptor',
-            'retenciones:Nacional',
-            'RfcR'
-        );
-
-        if (!rfcReceptor) {
-            rfcReceptorKey = 'nr';
-            rfcReceptor = helper.findAttribute(
-                'retenciones:Retenciones',
-                'retenciones:Receptor',
-                'retenciones:Extranjero',
-                'NumRegIdTribR'
-            );
-        }
-
-        if (!rfcReceptor) {
-            throw new AttributeNotFoundException('RET 2.0 receiver tax id cannot be found');
-        }
-
-        if (rfcReceptorKey === 'nr') {
-            rfcReceptor = rfcReceptor.padStart(20, '0');
-        }
+        const { rfcReceptorKey, rfcReceptor } = this.obtainReceptorValues(helper);
 
         const total = helper.getAttribute('retenciones:Retenciones', 'retenciones:Totales', 'MontoTotOperacion');
-        const sello = helper.getAttribute('retenciones:Retenciones', 'Sello').slice(-8);
+        const sello = helper.getAttribute('retenciones:Retenciones', 'Sello');
 
         return {
             id: uuid,
             re: rfcEmisor,
             [rfcReceptorKey]: rfcReceptor,
             tt: total,
-            fe: sello,
+            fe: sello
         };
     }
 
@@ -83,24 +66,51 @@ export class Retenciones20 implements ExpressionExtractorInterface {
 
     public format(values: Record<string, string>): string {
         let receptorKey = 'rr';
+
+        if (values['rr']) {
+            values[receptorKey] = this.formatRfc(values[receptorKey]);
+        }
+
         if (values['nr']) {
             receptorKey = 'nr';
             values['nr'] = this.formatForeignTaxId(values['nr']);
         }
+
         return `https://prodretencionverificacion.clouda.sat.gob.mx/?${[
             `id=${values['id'] || ''}`,
-            `re=${html_entities(values['re'] || '')}`,
-            `${receptorKey}=${html_entities(values[receptorKey] || '')}`,
+            `re=${this.formatRfc(values['re'] || '')}`,
+            `${receptorKey}=${values[receptorKey] || ''}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
-            `fe=${values['fe'] || ''}`,
+            `fe=${this.formatSello(values['fe'] || '')}`
         ].join('&')}`;
     }
 
-    public formatForeignTaxId(foreignTaxId: string) {
-        return foreignTaxId.padStart(20, '0');
-    }
+    private obtainReceptorValues(helper: DomHelper): { rfcReceptorKey: string; rfcReceptor: string } {
+        let rfcReceptorKey = 'rr';
+        let rfcReceptor = helper.findAttribute(
+            'retenciones:Retenciones',
+            'retenciones:Receptor',
+            'retenciones:Nacional',
+            'RfcR'
+        );
 
-    public formatTotal(input: string): string {
-        return toFixed(Number.parseFloat(input || '0'), 2);
+        if (rfcReceptor === null) {
+            rfcReceptorKey = 'nr';
+            rfcReceptor = helper.findAttribute(
+                'retenciones:Retenciones',
+                'retenciones:Receptor',
+                'retenciones:Extranjero',
+                'NumRegIdTribR'
+            );
+        }
+
+        if (rfcReceptor === null) {
+            throw new AttributeNotFoundException('RET 2.0 receiver tax id cannot be found');
+        }
+
+        return {
+            rfcReceptorKey,
+            rfcReceptor
+        };
     }
 }

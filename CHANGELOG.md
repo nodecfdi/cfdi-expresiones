@@ -1,6 +1,25 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.0
+
+### Refactorización de CFDI 4.0
+
+---
+Se refactoriza la generación de expresión para CFDI 4.0 con fundamento en el Anexo 20.
+Para ello la _Especificación técnica del código de barras bidimensional a incorporar en la representación impresa_ se separa a un estándar interno llamado `CfdiStandard20170701`
+
+### Refactorización de métodos compartidos
+
+---
+Las expresiones de CFDI 3.3 y CFDI 4.0 son idénticas, asi como la forma de formatear los datos como RFC, Sello, Total, etc. por lo que se refactorizan las clases para poner los métodos comunes en traits.
+
+### Refactorización de RET 2.0
+
+---
+Se refactoriza la forma de generar la expresión para Retenciones 2.0 con fundamento en el Anexo 20.
+
 ## 2.0.1
+
 - Fix Revert change on RET 1.0 not include url base (check anexo 20 technical reference page 102)
 - Fixed order of expression on Retenciones 2.0 id is first
 - Fixed expression on Retenciones 2.0 fe is included (fe contains the last 8 characters of sello)

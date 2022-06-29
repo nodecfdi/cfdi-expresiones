@@ -1,4 +1,5 @@
 node_modules
 dist
-build
-docs
+web_modules
+.prettierrc.js
+tsconfig.json

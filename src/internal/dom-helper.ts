@@ -1,6 +1,6 @@
-import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
-import { ElementNotFoundException } from '../exceptions/element-not-found-exception';
 import { DomValidators } from '@nodecfdi/cfdiutils-common';
+import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
+import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
 
 export class DomHelper {
     private document: Document;
@@ -13,6 +13,7 @@ export class DomHelper {
         if (!this.document.documentElement) {
             throw new SyntaxError('DOMDocument does not have root element');
         }
+
         return this.document.documentElement;
     }
 
@@ -22,6 +23,7 @@ export class DomHelper {
             const attribute = path.pop() || '';
             throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute} not found`);
         }
+
         return value;
     }
 
@@ -31,6 +33,7 @@ export class DomHelper {
         if (!element) {
             return null;
         }
+
         return element.getAttribute(attribute) || null;
     }
 
@@ -39,6 +42,7 @@ export class DomHelper {
         if (!element) {
             throw new ElementNotFoundException(`Element ${path.join('/')} not found`);
         }
+
         return element;
     }
 
@@ -55,6 +59,7 @@ export class DomHelper {
                 return null;
             }
         }
+
         return childElement;
     }
 
@@ -64,6 +69,7 @@ export class DomHelper {
                 return children;
             }
         }
+
         return null;
     }
 }

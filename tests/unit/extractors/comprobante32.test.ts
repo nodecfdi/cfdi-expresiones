@@ -1,6 +1,6 @@
-import { Comprobante32 } from '../../../src/extractors/comprobante32';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { Comprobante32 } from '~/extractors/comprobante32';
 import { DomDocumentsTestCase } from '../dom-documents-test-case';
-import { UnmatchedDocumentException } from '../../../src/exceptions/unmatched-document-exception';
 
 describe('Extractors/Comprobante32', () => {
     let extractor: Comprobante32;
@@ -25,46 +25,34 @@ describe('Extractors/Comprobante32', () => {
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
 
-    test('format cfdi32 on xml rfc with ampersand', () => {
+    test.each([[DomDocumentsTestCase.documentCfdi40()], [DomDocumentsTestCase.documentCfdi33()]])(
+        'not matches cfdi',
+        (document: Document) => {
+            expect(extractor.matches(document)).toBeFalsy();
+        }
+    );
+
+    test.each([[DomDocumentsTestCase.documentCfdi40()], [DomDocumentsTestCase.documentCfdi33()]])(
+        'extract not matches throw exception',
+        (document: Document) => {
+            expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
+            expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 3.2');
+        }
+    );
+
+    test('format uses formatting', () => {
         const expected32 = [
             '?re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
             '&tt=0000001234.567800',
-            '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
         ].join('');
         const parameters = {
             re: 'Ñ&A010101AAA',
             rr: 'Ñ&A991231AA0',
             tt: '1234.5678',
-            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
+            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
         };
         expect(extractor.format(parameters)).toBe(expected32);
-    });
-
-    test('not matches cfdi33', () => {
-        document = DomDocumentsTestCase.documentCfdi33();
-        expect(extractor.matches(document)).toBeFalsy();
-    });
-
-    test('extract not matches throw exception', () => {
-        document = DomDocumentsTestCase.documentCfdi33();
-        expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 3.2');
-    });
-
-    /**
-     * CFDI 3.2 total must be 6 decimals and 17 total length zero padding on left
-     */
-    test.each([
-        ['123.45', '0000000123.450000'],
-        ['0.123456', '0000000000.123456'],
-        ['0.1234561', '0000000000.123456'],
-        ['0.1234565', '0000000000.123457'],
-        ['1000.00000', '0000001000.000000'],
-        ['0', '0000000000.000000'],
-        ['0.00', '0000000000.000000'],
-        ['', '0000000000.000000'],
-    ])('how total must be formatted', (input, expectedFormat) => {
-        expect(extractor.formatTotal(input)).toBe(expectedFormat);
     });
 });

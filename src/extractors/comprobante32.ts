@@ -1,14 +1,17 @@
-import { MatchDetector } from '../internal/match-detector';
-import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
-import { DomHelper } from '../internal/dom-helper';
-import { ExpressionExtractorInterface } from '../expression-extractor-interface';
-import { html_entities, toFixed } from "../utils";
+import { Mixin } from 'ts-mixer';
+import { MatchDetector } from '~/internal/match-detector';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { DomHelper } from '~/internal/dom-helper';
+import { ExpressionExtractorInterface } from '~/expression-extractor-interface';
+import { FormatRfcXml } from './standards/format-rfc-xml';
+import { FormatTotal10x6 } from './standards/format-total10x6';
 
-export class Comprobante32 implements ExpressionExtractorInterface {
-    private matchDetector: MatchDetector;
+export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implements ExpressionExtractorInterface {
+    private _matchDetector: MatchDetector;
 
     constructor() {
-        this.matchDetector = new MatchDetector('http://www.sat.gob.mx/cfd/3', 'cfdi:Comprobante', 'version', '3.2');
+        super();
+        this._matchDetector = new MatchDetector('http://www.sat.gob.mx/cfd/3', 'cfdi:Comprobante', 'version', '3.2');
     }
 
     public uniqueName(): string {
@@ -16,7 +19,7 @@ export class Comprobante32 implements ExpressionExtractorInterface {
     }
 
     public matches(document: Document): boolean {
-        return this.matchDetector.matches(document);
+        return this._matchDetector.matches(document);
     }
 
     public obtain(document: Document): Record<string, string> {
@@ -34,7 +37,7 @@ export class Comprobante32 implements ExpressionExtractorInterface {
             re: rfcEmisor,
             rr: rfcReceptor,
             tt: total,
-            id: uuid,
+            id: uuid
         };
     }
 
@@ -44,14 +47,10 @@ export class Comprobante32 implements ExpressionExtractorInterface {
 
     public format(values: Record<string, string>): string {
         return `?${[
-            `re=${html_entities(values['re'] || '')}`,
-            `rr=${html_entities(values['rr'] || '')}`,
+            `re=${this.formatRfc(values['re'] || '')}`,
+            `rr=${this.formatRfc(values['rr'] || '')}`,
             `tt=${this.formatTotal(values['tt'] || '')}`,
-            `id=${values['id'] || ''}`,
+            `id=${values['id'] || ''}`
         ].join('&')}`;
-    }
-
-    public formatTotal(input: string): string {
-        return toFixed(Number.parseFloat(input || '0'), 6).padStart(17, '0');
     }
 }

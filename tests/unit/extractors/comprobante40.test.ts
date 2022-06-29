@@ -1,6 +1,6 @@
 import { DomDocumentsTestCase } from '../dom-documents-test-case';
-import { Comprobante40 } from '../../../src/extractors/comprobante40';
-import { UnmatchedDocumentException } from '../../../src/exceptions/unmatched-document-exception';
+import { Comprobante40 } from '~/extractors/comprobante40';
+import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 
 describe('Extractors/Comprobante40', () => {
     let extractor: Comprobante40;
@@ -22,39 +22,43 @@ describe('Extractors/Comprobante40', () => {
     test('extract cfdi40', () => {
         const expectedExpression = [
             'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?',
-            'id=3680B4AB-7D42-570A-9618-4A7D6701C44D&re=EKU9003173C9&rr=CUSC850516316&tt=1.16&fe=qsIe6w==',
+            'id=04BF2854-FE7D-4377-9196-71248F060ABB&re=CSM190311AH6&rr=MCI7306249Y1&tt=459.36&fe=5tSZhA=='
         ].join('');
 
         expect(extractor.extract(document)).toBe(expectedExpression);
     });
 
-    test('format cfdi40 on xml rfc with ampersand', () => {
+    test.each([[DomDocumentsTestCase.documentCfdi33(), DomDocumentsTestCase.documentCfdi32()]])(
+        'not matches cfdi',
+        (document: Document) => {
+            expect(extractor.matches(document)).toBeFalsy();
+        }
+    );
+
+    test.each([[DomDocumentsTestCase.documentCfdi33(), DomDocumentsTestCase.documentCfdi32()]])(
+        'extract not matches throw exception',
+        (document: Document) => {
+            expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
+            expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 4.0');
+        }
+    );
+
+    test('format uses formatting', () => {
         const expected33 = [
             'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx',
             '?id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
             '&re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
             '&tt=1234.5678',
-            '&fe=23456789',
+            '&fe=23456789'
         ].join('');
         const parameters = {
             id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
             re: 'Ñ&A010101AAA',
             rr: 'Ñ&A991231AA0',
             tt: '1234.5678',
-            fe: '0123456789'.slice(-8),
+            fe: 'xxx23456789'
         };
         expect(extractor.format(parameters)).toBe(expected33);
-    });
-
-    test('not matches cfdi33', () => {
-        document = DomDocumentsTestCase.documentCfdi33();
-        expect(extractor.matches(document)).toBeFalsy();
-    });
-
-    test('extract not matches throw exception', () => {
-        document = DomDocumentsTestCase.documentCfdi33();
-        expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 4.0');
     });
 });
