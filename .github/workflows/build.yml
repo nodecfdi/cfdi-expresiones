@@ -1,4 +1,4 @@
-name: Test
+name: build
 on:
   push:
     branches:
@@ -41,9 +41,11 @@ jobs:
       - name: Lint source
         run: |
           pnpm lint:ci
+
       - name: Build package
         run: |
           pnpm build
+
       - name: Run tests
         run: |
           pnpm test:ci
