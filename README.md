@@ -22,7 +22,7 @@
 
 Esta librería contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la
 información técnica del SAT en el Anexo 20. Librería inspirada por la versión para
-php https://github.com/phpcfdi/cfdi-expresiones
+php <https://github.com/phpcfdi/cfdi-expresiones>
 
 Estas expresiones se utilizan principalmente para dos motivos:
 
@@ -48,6 +48,7 @@ Ejemplo de expresión para RET 1.0:
 ```
 
 Ejemplo de expresión para RET 2.0:
+
 ```text
 https://prodretencionverificacion.clouda.sat.gob.mx/?id=ad662d33-6934-459c-a128-BDf0393f0f44&re=XAXX010101000&nr=12345678901234567890&tt=1234567890.12&fe=/OAgdg==
 ```

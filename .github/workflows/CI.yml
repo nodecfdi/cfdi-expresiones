@@ -57,7 +57,7 @@ jobs:
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: pnpm release
-          commit: version bump
+          commit: 'chore: version bump'
           title: Next release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,4 +71,4 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'Generate docs'
+          commit_message: 'docs: generate docs'
