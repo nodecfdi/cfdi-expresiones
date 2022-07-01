@@ -5,4 +5,4 @@ module.exports = {
     endOfLine: 'lf',
     quoteProps: 'consistent',
     printWidth: 120
-}
+};

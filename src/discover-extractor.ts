@@ -7,13 +7,13 @@ import { Comprobante40 } from './extractors/comprobante40';
 import { Retenciones20 } from './extractors/retenciones20';
 
 export class DiscoverExtractor implements ExpressionExtractorInterface {
-    private readonly expressions: ExpressionExtractorInterface[];
+    private readonly _expressions: ExpressionExtractorInterface[];
 
     constructor(...expressions: ExpressionExtractorInterface[]) {
         if (expressions.length === 0) {
             expressions = this.defaultExtractors();
         }
-        this.expressions = expressions;
+        this._expressions = expressions;
     }
 
     public defaultExtractors(): ExpressionExtractorInterface[] {
@@ -27,11 +27,11 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
     }
 
     public currentExpressionExtractors(): ExpressionExtractorInterface[] {
-        return this.expressions;
+        return this._expressions;
     }
 
     protected findByUniqueName(uniqueName: string): ExpressionExtractorInterface | null {
-        for (const expression of this.expressions) {
+        for (const expression of this._expressions) {
             if (uniqueName === expression.uniqueName()) {
                 return expression;
             }
@@ -41,7 +41,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
     }
 
     protected findMatch(document: Document): ExpressionExtractorInterface | null {
-        for (const expression of this.expressions) {
+        for (const expression of this._expressions) {
             if (expression.matches(document)) {
                 return expression;
             }

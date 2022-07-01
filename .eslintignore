@@ -1,5 +1,7 @@
 node_modules
 dist
+docs
+coverage
 web_modules
 .prettierrc.js
 tsconfig.json

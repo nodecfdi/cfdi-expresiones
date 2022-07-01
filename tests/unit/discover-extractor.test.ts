@@ -1,5 +1,6 @@
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
 import { Comprobante40, Comprobante32, Comprobante33, Retenciones10, Retenciones20, DiscoverExtractor } from '~/index';
-import { Xml } from '@nodecfdi/cfdiutils-common';
 import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { DomDocumentsTestCase } from './dom-documents-test-case';
 
@@ -15,6 +16,7 @@ describe('DiscoverExtractor', () => {
     ];
 
     beforeEach(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         extractor = new DiscoverExtractor();
     });
 
@@ -23,6 +25,7 @@ describe('DiscoverExtractor', () => {
     });
 
     test('generic extractor uses default', () => {
+        extractor = new DiscoverExtractor();
         const currentExpressionExtractors = extractor.currentExpressionExtractors();
         expect(currentExpressionExtractors).toHaveLength(5);
         expect(currentExpressionExtractors).toStrictEqual([
@@ -31,6 +34,17 @@ describe('DiscoverExtractor', () => {
             new Comprobante32(),
             new Retenciones20(),
             new Retenciones10()
+        ]);
+    });
+
+    test('generic extractor use specific extractors', () => {
+        extractor = new DiscoverExtractor(new Comprobante40(), new Comprobante33(), new Comprobante32());
+        const currentExpressionExtractors = extractor.currentExpressionExtractors();
+        expect(currentExpressionExtractors).toHaveLength(3);
+        expect(currentExpressionExtractors).toStrictEqual([
+            new Comprobante40(),
+            new Comprobante33(),
+            new Comprobante32()
         ]);
     });
 

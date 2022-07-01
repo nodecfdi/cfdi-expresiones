@@ -61,4 +61,8 @@ describe('Extractors/Comprobante33', () => {
         };
         expect(extractor.format(parameters)).toBe(expected33);
     });
+
+    test('format with empty', () => {
+        expect(extractor.format({})).not.toBe('');
+    });
 });

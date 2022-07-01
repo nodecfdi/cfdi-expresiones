@@ -19,8 +19,8 @@ export class DomHelper {
 
     public getAttribute(...path: string[]): string {
         const value = this.findAttribute(...path);
-        if (!value) {
-            const attribute = path.pop() || '';
+        if (value === null) {
+            const attribute = path.pop();
             throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute} not found`);
         }
 
@@ -28,13 +28,17 @@ export class DomHelper {
     }
 
     public findAttribute(...path: string[]): string | null {
-        const attribute = path.pop() || '';
+        const attribute = `${path.pop()}`;
         const element = this.findElement(...path);
-        if (!element) {
+        if (element === null) {
             return null;
         }
 
-        return element.getAttribute(attribute) || null;
+        if (!element.hasAttribute(attribute)) {
+            return null;
+        }
+
+        return element.getAttribute(attribute);
     }
 
     public getElement(...path: string[]): Element {

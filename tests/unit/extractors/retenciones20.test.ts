@@ -103,4 +103,8 @@ describe('Extractors/Retenciones20', () => {
         };
         expect(extractor.format(parameters)).toBe(expectedRetenciones20);
     });
+
+    test('format with empty', () => {
+        expect(extractor.format({})).not.toBe('');
+    });
 });

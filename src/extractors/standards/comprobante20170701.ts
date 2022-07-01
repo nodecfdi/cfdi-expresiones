@@ -61,7 +61,7 @@ abstract class Comprobante20170701
             `id=${values.id || ''}`,
             `re=${this.formatRfc(values.re || '')}`,
             `rr=${this.formatRfc(values.rr || '')}`,
-            `tt=${this.formatTotal(values.tt) || ''}`,
+            `tt=${this.formatTotal(values.tt || '')}`,
             `fe=${this.formatSello(values.fe || '')}`
         ].join('&')}`;
     }
