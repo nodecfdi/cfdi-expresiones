@@ -98,4 +98,8 @@ describe('Extractors/Retenciones10', () => {
     ])('format foreign tax id', (input: string, expected: string) => {
         expect(extractor.formatForeignTaxId(input)).toBe(expected);
     });
+
+    test('format with empty', () => {
+        expect(extractor.format({})).not.toBe('');
+    });
 });

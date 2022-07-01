@@ -1,4 +1,5 @@
-import { Xml } from '@nodecfdi/cfdiutils-common';
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
 import { DomHelper } from '~/internal/dom-helper';
 import { TestCase } from '../../test-case';
 import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
@@ -9,6 +10,7 @@ describe('Internal/DomHelper', () => {
     let helper: DomHelper;
 
     beforeEach(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         document = Xml.newDocumentContent(TestCase.fileContentPath('books.xml'));
         helper = new DomHelper(document);
     });

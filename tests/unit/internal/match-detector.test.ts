@@ -1,5 +1,6 @@
+import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
 import { MatchDetector } from '~/internal/match-detector';
-import { Xml } from '@nodecfdi/cfdiutils-common';
 import { TestCase } from '../../test-case';
 import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 
@@ -8,6 +9,7 @@ describe('Internal/MatchDetector', () => {
     let document: Document;
 
     beforeEach(() => {
+        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
         detector = new MatchDetector('http://example.com/books', 'b:books', 'version', 'v1');
         document = Xml.newDocumentContent(TestCase.fileContentPath('books.xml'));
     });
