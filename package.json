@@ -16,18 +16,17 @@
     "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
     "license": "MIT",
     "type": "module",
-    "main": "./dist/prod/index.cjs",
-    "module": "./dist/prod/index.modern.js",
-    "umd:main": "./dist/prod/index.umd.js",
+    "main": "./dist/prod/cfdi-expresiones.cjs",
+    "module": "./dist/prod/cfdi-expresiones.modern.js",
+    "unpkg": "./dist/prod/cfdi-expresiones.umd.js",
     "exports": {
-        "require": "./dist/prod/index.cjs",
-        "development": "./dist/dev/index.modern.js",
-        "default": "./dist/prod/index.modern.js"
+        "require": "./dist/prod/cfdi-expresiones.cjs",
+        "development": "./dist/dev/cfdi-expresiones.modern.js",
+        "default": "./dist/prod/cfdi-expresiones.modern.js"
     },
     "types": "dist/types/index.d.ts",
     "files": [
-        "dist",
-        "src"
+        "dist"
     ],
     "scripts": {
         "lint": "eslint --fix \"src/**/\"",
@@ -37,8 +36,8 @@
         "test:watch": "jest --watch",
         "test:ci": "jest --runInBand --ci",
         "test:ci:coverage": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
-        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod/index.js",
-        "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/index.js",
+        "build:prod": "cross-env NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs,umd  --output dist/prod/cfdi-expresiones.js",
+        "build:dev": "cross-env NODE_ENV=development microbundle --define process.env.NODE_ENV=development --tsconfig ./tsconfig.json --generateTypes false --format modern --output dist/dev/cfdi-expresiones.js",
         "build": "rm -rf ./dist && pnpm build:dev && pnpm build:prod",
         "gen:docs": "rm -rf ./docs && typedoc --options typedoc.cjs",
         "prepublishOnly": "pnpm build",
@@ -57,7 +56,7 @@
         "@changesets/cli": "^2.23.0",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@types/jest": "^28.1.3",
+        "@types/jest": "^28.1.4",
         "@types/node": "^18.0.0",
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.30.0",
@@ -67,11 +66,11 @@
         "eslint": "^8.18.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-jest": "^26.5.3",
-        "eslint-plugin-prettier": "^4.1.0",
+        "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-promise": "^6.0.0",
         "eslint-plugin-tsdoc": "^0.2.16",
         "husky": "^8.0.1",
-        "jest": "^28.1.1",
+        "jest": "^28.1.2",
         "jest-mock-console": "^2.0.0",
         "jest-watch-typeahead": "^1.1.0",
         "lint-staged": "^13.0.3",
@@ -79,15 +78,22 @@
         "prettier": "^2.7.1",
         "shx": "^0.3.4",
         "typedoc": "^0.23.2",
-        "typedoc-plugin-markdown": "^3.13.0",
+        "typedoc-theme-hierarchy": "^1.3.2",
         "typescript": "^4.7.4",
-        "zx": "^7.0.3"
+        "zx": "^7.0.5"
     },
     "dependencies": {
-        "@nodecfdi/cfdiutils-common": "^1.1.0",
+        "@nodecfdi/cfdiutils-common": "^1.2.0",
         "ts-mixer": "^6.0.1"
     },
+    "bundledDependencies": [
+        "ts-mixer"
+    ],
     "engines": {
-        "node": ">= 12.0.0"
-    }
+        "node": ">= 14.0.0"
+    },
+    "browserslist": [
+        "defaults",
+        "not IE 11"
+    ]
 }

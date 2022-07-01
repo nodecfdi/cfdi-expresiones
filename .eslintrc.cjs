@@ -4,13 +4,13 @@ module.exports = {
         // commonjs: true,
         es6: true,
         node: true,
-        jest: true,
+        jest: true
     },
     globals: {
         __DEV__: true,
         __VERSION__: true,
         __COMMIT_SHA__: true,
-        __BUILD_DATE__: true,
+        __BUILD_DATE__: true
     },
     plugins: ['@typescript-eslint/eslint-plugin', 'eslint-plugin-tsdoc', 'prettier'],
     extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:jest/recommended', 'prettier'],
@@ -20,13 +20,13 @@ module.exports = {
         /* enabling "project" field is a performance hit
       https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md#performance
     */
-        sourceType: 'module',
+        sourceType: 'module'
     },
     rules: {
-        indent: 'off',
+        'indent': 'off',
         'tsdoc/syntax': 'warn',
         '@typescript-eslint/no-unused-vars': [2, { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-        semi: 'error',
+        'semi': 'error',
         'quote-props': ['error', 'consistent'],
         'generator-star-spacing': ['error', { before: false, after: true }],
         'space-before-function-paren': 'off',
@@ -40,23 +40,23 @@ module.exports = {
             'error',
             {
                 allowExpressions: true,
-                allowTypedFunctionExpressions: true,
-            },
+                allowTypedFunctionExpressions: true
+            }
         ],
         '@typescript-eslint/explicit-member-accessibility': [
             'error',
             {
                 accessibility: 'explicit',
                 overrides: {
-                    constructors: 'no-public',
-                },
-            },
+                    constructors: 'no-public'
+                }
+            }
         ],
         '@typescript-eslint/ban-ts-comment': [
             'error',
             {
-                'ts-expect-error': 'allow-with-description',
-            },
+                'ts-expect-error': 'allow-with-description'
+            }
         ],
         '@typescript-eslint/no-non-null-assertion': [2],
         '@typescript-eslint/no-explicit-any': [2, { ignoreRestArgs: true }],
@@ -65,25 +65,25 @@ module.exports = {
             {
                 multiline: {
                     delimiter: 'semi',
-                    requireLast: true,
+                    requireLast: true
                 },
                 singleline: {
                     delimiter: 'semi',
-                    requireLast: false,
+                    requireLast: false
                 },
-                multilineDetection: 'brackets',
-            },
+                multilineDetection: 'brackets'
+            }
         ],
         '@typescript-eslint/indent': ['error', 4],
-        '@typescript-eslint/no-empty-interface': 'off',
+        '@typescript-eslint/no-empty-interface': 'off'
     },
     overrides: [
         {
             files: ['*.js', '*.jsx'],
             rules: {
                 '@typescript-eslint/explicit-function-return-type': 'off',
-                '@typescript-eslint/no-var-requires': 'off',
-            },
-        },
-    ],
+                '@typescript-eslint/no-var-requires': 'off'
+            }
+        }
+    ]
 };
