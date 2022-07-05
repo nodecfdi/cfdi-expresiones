@@ -1,5 +1,11 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.2
+
+### Patch Changes
+
+- Para typescript se arreglan los types dado que usar un custom path generaba mal el tipado.
+
 ## 2.1.1
 
 ### DOM Agnostic
