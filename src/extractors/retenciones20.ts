@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
-import { ExpressionExtractorInterface } from '~/expression-extractor-interface';
-import { MatchDetector } from '~/internal/match-detector';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
-import { DomHelper } from '~/internal/dom-helper';
-import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
+import { ExpressionExtractorInterface } from '../expression-extractor-interface';
+import { MatchDetector } from '../internal/match-detector';
+import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
+import { DomHelper } from '../internal/dom-helper';
+import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
 import { FormatForeignTaxId20 } from './standards/format-foreign-tax-id20';
 import { FormatRfcXml } from './standards/format-rfc-xml';
 import { FormatTotal18x6 } from './standards/format-total18x6';

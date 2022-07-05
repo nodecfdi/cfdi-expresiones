@@ -1,6 +1,6 @@
 import { DomValidators } from '@nodecfdi/cfdiutils-common';
-import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
-import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
+import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
+import { ElementNotFoundException } from '../exceptions/element-not-found-exception';
 
 export class DomHelper {
     private document: Document;

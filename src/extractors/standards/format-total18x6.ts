@@ -1,4 +1,4 @@
-import { rtrim, toFixed } from '~/utils';
+import { rtrim, toFixed } from '../../utils';
 
 export class FormatTotal18x6 {
     public formatTotal(input: string): string {

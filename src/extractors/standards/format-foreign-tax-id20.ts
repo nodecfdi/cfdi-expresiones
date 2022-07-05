@@ -1,4 +1,4 @@
-import { html_entities } from '~/utils';
+import { html_entities } from '../../utils';
 
 export class FormatForeignTaxId20 {
     public formatForeignTaxId(foreignTaxId: string): string {

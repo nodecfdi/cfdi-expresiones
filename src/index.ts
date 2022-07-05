@@ -1,3 +1,7 @@
+export * from './exceptions/attribute-not-found-exception';
+export * from './exceptions/element-not-found-exception';
+export * from './exceptions/expression-exception';
+export * from './exceptions/unmatched-document-exception';
 export * from './expression-extractor-interface';
 export * from './internal/match-detector';
 export * from './extractors/comprobante40';

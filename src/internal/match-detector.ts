@@ -1,4 +1,4 @@
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 
 export class MatchDetector {
     public namespaceUri: string;
