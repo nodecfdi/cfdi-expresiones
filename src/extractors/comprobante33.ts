@@ -1,5 +1,5 @@
-import { ExpressionExtractorInterface } from '~/expression-extractor-interface';
-import { MatchDetector } from '~/internal/match-detector';
+import { ExpressionExtractorInterface } from '../expression-extractor-interface';
+import { MatchDetector } from '../internal/match-detector';
 import { Comprobante20170701 } from './standards/comprobante20170701';
 
 /**

@@ -1,4 +1,4 @@
-import { toFixed } from '~/utils';
+import { toFixed } from '../../utils';
 
 export class FormatTotal10x6 {
     public formatTotal(input: string): string {

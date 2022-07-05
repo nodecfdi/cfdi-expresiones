@@ -1,8 +1,8 @@
 import { Mixin } from 'ts-mixer';
-import { MatchDetector } from '~/internal/match-detector';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
-import { DomHelper } from '~/internal/dom-helper';
-import { ExpressionExtractorInterface } from '~/expression-extractor-interface';
+import { MatchDetector } from '../internal/match-detector';
+import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
+import { DomHelper } from '../internal/dom-helper';
+import { ExpressionExtractorInterface } from '../expression-extractor-interface';
 import { FormatRfcXml } from './standards/format-rfc-xml';
 import { FormatTotal10x6 } from './standards/format-total10x6';
 

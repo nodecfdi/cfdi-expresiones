@@ -19,12 +19,7 @@
         "isolatedModules": true,
         "incremental": true,
         "jsx": "preserve",
-        "baseUrl": ".",
-        "paths": {
-            "~/*": [
-                "src/*"
-            ]
-        }
+        "baseUrl": "."
     },
     "include": [
         "src/**/*"
