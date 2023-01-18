@@ -1,6 +1,6 @@
 {
     "name": "@nodecfdi/cfdi-expresiones",
-    "version": "2.1.2",
+    "version": "2.1.3",
     "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
     "keywords": [
         "CFDI 4.0",
