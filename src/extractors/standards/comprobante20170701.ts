@@ -1,8 +1,8 @@
 import { Mixin } from 'ts-mixer';
 import { UnmatchedDocumentException } from '../../exceptions/unmatched-document-exception';
-import { ExpressionExtractorInterface } from '../../expression-extractor-interface';
+import { type ExpressionExtractorInterface } from '../../expression-extractor-interface';
 import { DomHelper } from '../../internal/dom-helper';
-import { MatchDetector } from '../../internal/match-detector';
+import { type MatchDetector } from '../../internal/match-detector';
 import { FormatRfcXml } from './format-rfc-xml';
 import { FormatSelloLast8 } from './format-sello-last8';
 import { FormatTotal18x6 } from './format-total18x6';
@@ -15,17 +15,14 @@ abstract class Comprobante20170701
     extends Mixin(FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
     implements ExpressionExtractorInterface
 {
-    private _matchDetector: MatchDetector;
-
-    private _unmatchedExceptionMessage: string;
+    private readonly _matchDetector: MatchDetector;
+    private readonly _unmatchedExceptionMessage: string;
 
     constructor(matchDetector: MatchDetector, unmatchedExceptionMessage: string) {
         super();
         this._matchDetector = matchDetector;
         this._unmatchedExceptionMessage = unmatchedExceptionMessage;
     }
-
-    public abstract uniqueName(): string;
 
     public matches(document: Document): boolean {
         return this._matchDetector.matches(document);
@@ -65,6 +62,8 @@ abstract class Comprobante20170701
             `fe=${this.formatSello(values.fe || '')}`
         ].join('&')}`;
     }
+
+    public abstract uniqueName(): string;
 }
 
 export { Comprobante20170701 };

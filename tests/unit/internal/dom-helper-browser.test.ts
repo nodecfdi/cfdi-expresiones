@@ -1,34 +1,37 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
 import { DomHelper } from '~/internal/dom-helper';
 import { useTestCase } from '../../test-case';
 import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
 import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
 
-describe('Internal/DomHelper', () => {
-    let document: Document;
+describe('Internal/DomHelper_Browser', () => {
+    let _document: Document;
     let helper: DomHelper;
     const { fileContentPath } = useTestCase();
 
     beforeEach(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
-        document = Xml.newDocumentContent(fileContentPath('books.xml'));
-        helper = new DomHelper(document);
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
+        _document = Xml.newDocumentContent(fileContentPath('books.xml'));
+        helper = new DomHelper(_document);
     });
 
     test('fails using document without root element', () => {
-        document = Xml.newDocument();
-        helper = new DomHelper(document);
+        _document = Xml.newDocument();
+        helper = new DomHelper(_document);
         expect(() => helper.rootElement()).toThrow(SyntaxError);
     });
 
     test('returns root element', () => {
-        expect(helper.rootElement()).toStrictEqual(document.documentElement);
+        expect(helper.rootElement()).toStrictEqual(_document.documentElement);
     });
 
     test('returns find root element', () => {
         const element = helper.findElement('b:books');
-        expect(element).toStrictEqual(document.documentElement);
+        expect(element).toStrictEqual(_document.documentElement);
     });
 
     test('returns null finding invalid root element', () => {

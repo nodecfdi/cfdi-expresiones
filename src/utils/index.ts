@@ -1,4 +1,4 @@
-// added current fixed to since in javascript
+// Added current fixed to since in javascript
 // toFixed-function, the floating point number 5
 // does not belong to the upper half of an integer,
 // the given number is rounded down
@@ -8,14 +8,14 @@ const toFixed = (number: number, decimals: number): string => {
     return (Math.round(number * base) / base).toFixed(decimals);
 };
 
-const rtrim = (str: string, chart?: string): string => {
-    chart = !chart ? ' \\s\u00A0' : (chart + '').replace(/([[\]().?/*{}+$^:])/g, '\\$1');
+const rtrim = (string_: string, chart?: string): string => {
+    chart = chart ? String(chart).replace(/([$()*+./:?[\]^{}])/g, '\\$1') : ' \\s\u00A0';
     const re = new RegExp('[' + chart + ']+$', 'g');
 
-    return (str + '').replace(re, '');
+    return String(string_).replace(re, '');
 };
 
-const html_entities = (str: string): string => {
+const html_entities = (string_: string): string => {
     const tagsToReplace: Record<string, string> = {
         '"': '&quot;',
         '&': '&amp;',
@@ -32,11 +32,9 @@ const html_entities = (str: string): string => {
         // http://html5sec.org/#133.
         '`': '&#x60;'
     };
-    const replaceTag = (tag: string): string => {
-        return tagsToReplace[tag];
-    };
+    const replaceTag = (tag: string): string => tagsToReplace[tag];
 
-    return str.replace(/["&'<>`]/g, replaceTag);
+    return string_.replace(/["&'<>`]/g, replaceTag);
 };
 
 export { toFixed, rtrim, html_entities };

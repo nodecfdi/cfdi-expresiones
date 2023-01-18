@@ -1,5 +1,16 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.3
+
+### Change build tool from microbundle to rollup
+
+- Change build tool
+- Update dependencies
+- Added api-extractor for check types `.d.ts`
+- Replace microbundle for rollup
+- Replace jest for vitest (added support to multiple environment tests like a node or browser env)
+- Added all required test for browser usage
+
 ## 2.1.2
 
 ### Patch Changes

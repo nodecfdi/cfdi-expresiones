@@ -1,18 +1,21 @@
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
 import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { Retenciones10 } from '~/extractors/retenciones10';
 import { useDomDocuments } from '../dom-documents-test-case';
 
-describe('Extractors/Retenciones10', () => {
+describe('Extractors/Retenciones10_Browser', () => {
     let extractor: Retenciones10;
-    let document: Document;
+    let _document: Document;
     const { documentRet10Mexican, documentRet10Foreign, documentRet20Mexican, documentRet20Foreign, documentLoad } =
-        useDomDocuments(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        useDomDocuments(new DOMParser(), new XMLSerializer(), document.implementation);
 
     beforeEach(() => {
         extractor = new Retenciones10();
-        document = documentRet10Foreign();
+        _document = documentRet10Foreign();
     });
 
     test('unique name', () => {
@@ -20,7 +23,7 @@ describe('Extractors/Retenciones10', () => {
     });
 
     test('matches retenciones10', () => {
-        expect(extractor.matches(document)).toBeTruthy();
+        expect(extractor.matches(_document)).toBeTruthy();
     });
 
     test('extract retenciones10 foreign', () => {
@@ -28,38 +31,38 @@ describe('Extractors/Retenciones10', () => {
             '?re=AAA010101AAA&nr=00000000001234567890&tt=0002000000.000000',
             '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5'
         ].join('');
-        expect(extractor.extract(document)).toBe(expectedExpression);
+        expect(extractor.extract(_document)).toBe(expectedExpression);
     });
 
     test('extract retenciones10 mexican', () => {
-        document = documentRet10Mexican();
+        _document = documentRet10Mexican();
         const expectedExpression = [
             '?re=AAA010101AAA&rr=SUL010720JN8&tt=0002000000.000000',
             '&id=fc1b47b2-42f3-4ca2-8587-36e0a216c4d5'
         ].join('');
-        expect(extractor.extract(document)).toBe(expectedExpression);
+        expect(extractor.extract(_document)).toBe(expectedExpression);
     });
 
     test.each([
         ['RET20Mexican', documentRet20Mexican()],
         ['RET20Foreign', documentRet20Foreign()]
-    ])('not matches cfdi %s', (_name: string, document: Document) => {
-        expect(extractor.matches(document)).toBeFalsy();
+    ])('not matches cfdi %s', (_name: string, _document: Document) => {
+        expect(extractor.matches(_document)).toBeFalsy();
     });
 
     test.each([
         ['RET20Mexican', documentRet20Mexican()],
         ['RET20Foreign', documentRet20Foreign()]
-    ])('extract not matches throw exception with %s', (_name: string, document: Document) => {
-        expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(document)).toThrow('The document is not a RET 1.0');
+    ])('extract not matches throw exception with %s', (_name: string, _document: Document) => {
+        expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
+        expect(() => extractor.extract(_document)).toThrow('The document is not a RET 1.0');
     });
 
     test('extract without receptor throws exception', () => {
-        document = documentLoad('ret10-without-receptor-tax-id.xml');
+        _document = documentLoad('ret10-without-receptor-tax-id.xml');
 
-        expect(() => extractor.extract(document)).toThrow(AttributeNotFoundException);
-        expect(() => extractor.extract(document)).toThrow('RET 1.0 receiver tax id cannot be found');
+        expect(() => extractor.extract(_document)).toThrow(AttributeNotFoundException);
+        expect(() => extractor.extract(_document)).toThrow('RET 1.0 receiver tax id cannot be found');
     });
 
     test('format mexican', () => {

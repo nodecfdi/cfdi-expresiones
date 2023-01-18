@@ -1,4 +1,6 @@
-import { ExpressionExtractorInterface } from './expression-extractor-interface';
+/* eslint-disable unicorn/no-null */
+/* eslint-disable @typescript-eslint/ban-types */
+import { type ExpressionExtractorInterface } from './expression-extractor-interface';
 import { Comprobante33 } from './extractors/comprobante33';
 import { Comprobante32 } from './extractors/comprobante32';
 import { Retenciones10 } from './extractors/retenciones10';
@@ -13,6 +15,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
         if (expressions.length === 0) {
             expressions = this.defaultExtractors();
         }
+
         this._expressions = expressions;
     }
 
@@ -28,6 +31,37 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
 
     public currentExpressionExtractors(): ExpressionExtractorInterface[] {
         return this._expressions;
+    }
+
+    public matches(document: Document): boolean {
+        return this.findMatch(document) !== null;
+    }
+
+    public uniqueName(): string {
+        return 'discover';
+    }
+
+    public obtain(document: Document): Record<string, string> {
+        const discovered = this.getFirstMatch(document);
+
+        return discovered.obtain(document);
+    }
+
+    public extract(document: Document): string {
+        const discovered = this.getFirstMatch(document);
+
+        return discovered.extract(document);
+    }
+
+    public format(values: Record<string, string>, type = ''): string {
+        const extractor = this.findByUniqueName(type);
+        if (extractor === null) {
+            throw new UnmatchedDocumentException('DiscoverExtractor requires type key with an extractor identifier');
+        }
+
+        delete values.type;
+
+        return extractor.format(values);
     }
 
     protected findByUniqueName(uniqueName: string): ExpressionExtractorInterface | null {
@@ -57,35 +91,5 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
         }
 
         return discovered;
-    }
-
-    public matches(document: Document): boolean {
-        return this.findMatch(document) !== null;
-    }
-
-    public uniqueName(): string {
-        return 'discover';
-    }
-
-    public obtain(document: Document): Record<string, string> {
-        const discovered = this.getFirstMatch(document);
-
-        return discovered.obtain(document);
-    }
-
-    public extract(document: Document): string {
-        const discovered = this.getFirstMatch(document);
-
-        return discovered.extract(document);
-    }
-
-    public format(values: Record<string, string>, type = ''): string {
-        const extractor = this.findByUniqueName(type);
-        if (extractor === null) {
-            throw new UnmatchedDocumentException('DiscoverExtractor requires type key with an extractor identifier');
-        }
-        delete values['type'];
-
-        return extractor.format(values);
     }
 }

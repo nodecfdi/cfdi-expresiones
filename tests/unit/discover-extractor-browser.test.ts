@@ -1,10 +1,13 @@
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
 import { Comprobante40, Comprobante32, Comprobante33, Retenciones10, Retenciones20, DiscoverExtractor } from '~/index';
 import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { useDomDocuments } from './dom-documents-test-case';
 
-describe('DiscoverExtractor', () => {
+describe('DiscoverExtractor_Browser', () => {
     let extractor: DiscoverExtractor;
     const {
         documentCfdi32,
@@ -14,7 +17,7 @@ describe('DiscoverExtractor', () => {
         documentRet10Mexican,
         documentRet20Foreign,
         documentRet20Mexican
-    } = useDomDocuments(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+    } = useDomDocuments(new DOMParser(), new XMLSerializer(), document.implementation);
 
     const providerExpressionOnValidDocuments: Array<[string, Document, string]> = [
         ['cfdi40', documentCfdi40(), 'CFDI40'],
@@ -27,7 +30,7 @@ describe('DiscoverExtractor', () => {
     ];
 
     beforeEach(() => {
-        install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
+        install(new DOMParser(), new XMLSerializer(), document.implementation);
         extractor = new DiscoverExtractor();
     });
 
@@ -60,32 +63,32 @@ describe('DiscoverExtractor', () => {
     });
 
     test('dont match using empty document', () => {
-        const document = Xml.newDocument();
-        expect(extractor.matches(document)).toBeFalsy();
+        const _document = Xml.newDocument();
+        expect(extractor.matches(_document)).toBeFalsy();
     });
 
     test('throw exception on unmatched document', () => {
-        const document = Xml.newDocument();
-        expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(document)).toThrow(
+        const _document = Xml.newDocument();
+        expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
+        expect(() => extractor.extract(_document)).toThrow(
             'Cannot discover any DiscoverExtractor that matches with document'
         );
     });
 
     test.each(providerExpressionOnValidDocuments)(
         'expression on valid documents %s',
-        (_name: string, document: Document) => {
-            expect(extractor.matches(document)).toBeTruthy();
-            expect(extractor.extract(document)).not.toBe('');
+        (_name: string, _document: Document) => {
+            expect(extractor.matches(_document)).toBeTruthy();
+            expect(extractor.extract(_document)).not.toBe('');
         }
     );
 
     test.each(providerExpressionOnValidDocuments)(
         'extract produces the same results as obtain and format with %s',
-        (_name, document, type) => {
-            const values = extractor.obtain(document);
+        (_name, _document, type) => {
+            const values = extractor.obtain(_document);
             const expression = extractor.format(values, type);
-            const expectedExpression = extractor.extract(document);
+            const expectedExpression = extractor.extract(_document);
             expect(expression).toBe(expectedExpression);
         }
     );

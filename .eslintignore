@@ -1,7 +1,9 @@
 node_modules
+coverage
 dist
 docs
-coverage
-web_modules
-.prettierrc.js
-tsconfig.json
+temp
+
+# Config files
+rollup.config.mjs
+vitest.config.ts

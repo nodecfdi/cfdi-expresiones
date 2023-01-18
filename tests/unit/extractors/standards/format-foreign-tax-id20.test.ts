@@ -8,7 +8,7 @@ describe('FormatForeignTaxId20', () => {
         ['ÑÑÑ', '00000000000000000ÑÑÑ'],
         ['ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ', 'ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ'],
         ['A&Z', '0000000000000A&amp;Z']
-    ])('format foreign tax id', (input: string, expected: string) => {
+    ])('format foreign tax id input: %s - expected %s', (input: string, expected: string) => {
         const extractor = new FormatForeignTaxId20();
 
         expect(extractor.formatForeignTaxId(input)).toBe(expected);
