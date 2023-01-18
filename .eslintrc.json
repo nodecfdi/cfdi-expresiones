@@ -8,6 +8,7 @@
     },
     "rules": {
         // Eslint suite rules
+        "new-cap": ["error", { "capIsNew": false }],
         "semi": "error",
         "quotes": [
             "error",

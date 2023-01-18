@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { ExpressionExtractorInterface } from '../expression-extractor-interface';
+import { type ExpressionExtractorInterface } from '../expression-extractor-interface';
 import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
@@ -12,7 +12,7 @@ export class Retenciones10
     extends Mixin(FormatForeignTaxId20, FormatRfcXml, FormatTotal10x6)
     implements ExpressionExtractorInterface
 {
-    private _matchDetector: MatchDetector;
+    private readonly _matchDetector: MatchDetector;
 
     constructor() {
         super();
@@ -36,6 +36,7 @@ export class Retenciones10
         if (!this.matches(document)) {
             throw new UnmatchedDocumentException('The document is not a RET 1.0');
         }
+
         const helper = new DomHelper(document);
 
         const uuid = helper.getAttribute(
@@ -65,20 +66,20 @@ export class Retenciones10
     public format(values: Record<string, string>): string {
         let receptorKey = 'rr';
 
-        if (values['rr']) {
-            values['rr'] = this.formatRfc(values[receptorKey]);
+        if (values.rr) {
+            values.rr = this.formatRfc(values[receptorKey]);
         }
 
-        if (values['nr']) {
+        if (values.nr) {
             receptorKey = 'nr';
-            values['nr'] = this.formatForeignTaxId(values['nr']);
+            values.nr = this.formatForeignTaxId(values.nr);
         }
 
         return `?${[
-            `re=${this.formatRfc(values['re'] || '')}`,
+            `re=${this.formatRfc(values.re || '')}`,
             `${receptorKey}=${values[receptorKey] || ''}`,
-            `tt=${this.formatTotal(values['tt'] || '')}`,
-            `id=${values['id'] || ''}`
+            `tt=${this.formatTotal(values.tt || '')}`,
+            `id=${values.id || ''}`
         ].join('&')}`;
     }
 

@@ -1,20 +1,23 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable unicorn/no-null */
 import { DomValidators } from '@nodecfdi/cfdiutils-common';
 import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
 import { ElementNotFoundException } from '../exceptions/element-not-found-exception';
 
 export class DomHelper {
-    private document: Document;
+    private readonly _document: Document;
 
     constructor(document: Document) {
-        this.document = document;
+        this._document = document;
     }
 
     public rootElement(): Element {
-        if (!this.document.documentElement) {
+        if (!this._document.documentElement) {
             throw new SyntaxError('DOMDocument does not have root element');
         }
 
-        return this.document.documentElement;
+        return this._document.documentElement;
     }
 
     public getAttribute(...path: string[]): string {
@@ -56,6 +59,7 @@ export class DomHelper {
         if (name !== element.nodeName) {
             return null;
         }
+
         let childElement: Element | null = element;
         for (const childName of path) {
             childElement = this.findFirstChildByName(childElement, childName);
@@ -69,7 +73,7 @@ export class DomHelper {
 
     public findFirstChildByName(parent: Element, name: string): Element | null {
         for (let children = parent.firstChild; children; children = children.nextSibling) {
-            if (DomValidators.isElement(children) && name == children.nodeName) {
+            if (DomValidators.isElement(children) && name === children.nodeName) {
                 return children;
             }
         }

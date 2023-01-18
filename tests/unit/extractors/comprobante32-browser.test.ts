@@ -1,20 +1,23 @@
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
+/**
+ * \@vitest-environment jsdom
+ */
+
 import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { Comprobante32 } from '~/extractors/comprobante32';
 import { useDomDocuments } from '../dom-documents-test-case';
 
-describe('Extractors/Comprobante32', () => {
+describe('Extractors/Comprobante32_Browser', () => {
     let extractor: Comprobante32;
-    let document: Document;
+    let _document: Document;
     const { documentCfdi32, documentCfdi33, documentCfdi40 } = useDomDocuments(
         new DOMParser(),
         new XMLSerializer(),
-        new DOMImplementation()
+        document.implementation
     );
 
     beforeEach(() => {
         extractor = new Comprobante32();
-        document = documentCfdi32();
+        _document = documentCfdi32();
     });
 
     test('unique name', () => {
@@ -22,28 +25,28 @@ describe('Extractors/Comprobante32', () => {
     });
 
     test('matches cfdi32', () => {
-        expect(extractor.matches(document)).toBeTruthy();
+        expect(extractor.matches(_document)).toBeTruthy();
     });
 
     test('extract cfdi32', () => {
         const expectedExpression =
             '?re=CTO021007DZ8&rr=XAXX010101000&tt=0000004685.000000&id=80824F3B-323E-407B-8F8E-40D83FE2E69F';
-        expect(extractor.extract(document)).toBe(expectedExpression);
+        expect(extractor.extract(_document)).toBe(expectedExpression);
     });
 
     test.each([
         ['cfdi40', documentCfdi40()],
         ['cfdi33', documentCfdi33()]
-    ])('not matches cfdi with %s', (_name: string, document: Document) => {
-        expect(extractor.matches(document)).toBeFalsy();
+    ])('not matches cfdi with %s', (_name: string, _document: Document) => {
+        expect(extractor.matches(_document)).toBeFalsy();
     });
 
     test.each([
         ['cfdi40', documentCfdi40()],
         ['cfdi33', documentCfdi33()]
-    ])('extract not matches throw exception with %s', (_name: string, document: Document) => {
-        expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 3.2');
+    ])('extract not matches throw exception with %s', (_name: string, _document: Document) => {
+        expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
+        expect(() => extractor.extract(_document)).toThrow('The document is not a CFDI 3.2');
     });
 
     test('format uses formatting', () => {

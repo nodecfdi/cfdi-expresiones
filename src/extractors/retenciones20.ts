@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { ExpressionExtractorInterface } from '../expression-extractor-interface';
+import { type ExpressionExtractorInterface } from '../expression-extractor-interface';
 import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
@@ -13,7 +13,7 @@ export class Retenciones20
     extends Mixin(FormatForeignTaxId20, FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
     implements ExpressionExtractorInterface
 {
-    private _matchDetector: MatchDetector;
+    private readonly _matchDetector: MatchDetector;
 
     constructor() {
         super();
@@ -37,6 +37,7 @@ export class Retenciones20
         if (!this.matches(document)) {
             throw new UnmatchedDocumentException('The document is not a RET 2.0');
         }
+
         const helper = new DomHelper(document);
 
         const uuid = helper.getAttribute(
@@ -67,21 +68,21 @@ export class Retenciones20
     public format(values: Record<string, string>): string {
         let receptorKey = 'rr';
 
-        if (values['rr']) {
+        if (values.rr) {
             values[receptorKey] = this.formatRfc(values[receptorKey]);
         }
 
-        if (values['nr']) {
+        if (values.nr) {
             receptorKey = 'nr';
-            values['nr'] = this.formatForeignTaxId(values['nr']);
+            values.nr = this.formatForeignTaxId(values.nr);
         }
 
         return `https://prodretencionverificacion.clouda.sat.gob.mx/?${[
-            `id=${values['id'] || ''}`,
-            `re=${this.formatRfc(values['re'] || '')}`,
+            `id=${values.id || ''}`,
+            `re=${this.formatRfc(values.re || '')}`,
             `${receptorKey}=${values[receptorKey] || ''}`,
-            `tt=${this.formatTotal(values['tt'] || '')}`,
-            `fe=${this.formatSello(values['fe'] || '')}`
+            `tt=${this.formatTotal(values.tt || '')}`,
+            `fe=${this.formatSello(values.fe || '')}`
         ].join('&')}`;
     }
 

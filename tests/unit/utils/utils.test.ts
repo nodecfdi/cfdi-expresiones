@@ -6,7 +6,7 @@ describe('utils', () => {
     });
 
     test('toFixed floating point number 5 upper half of an integer', () => {
-        expect(toFixed(0.1234565, 6)).toBe('0.123457');
+        expect(toFixed(0.123_456_5, 6)).toBe('0.123457');
     });
 
     test('rtrim default charList', () => {

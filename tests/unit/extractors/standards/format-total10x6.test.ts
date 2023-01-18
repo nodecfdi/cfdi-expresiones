@@ -13,7 +13,7 @@ describe('FormatTotal10x6', () => {
         ['0', '0000000000.000000'],
         ['0.00', '0000000000.000000'],
         ['', '0000000000.000000']
-    ])('how total must be formatted', (input: string, expectedFormat: string) => {
+    ])('how total must be formatted input: %s - expected format: %s', (input: string, expectedFormat: string) => {
         const extractor = new FormatTotal10x6();
 
         expect(extractor.formatTotal(input)).toBe(expectedFormat);

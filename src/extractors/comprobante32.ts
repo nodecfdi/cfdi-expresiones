@@ -2,12 +2,12 @@ import { Mixin } from 'ts-mixer';
 import { MatchDetector } from '../internal/match-detector';
 import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception';
 import { DomHelper } from '../internal/dom-helper';
-import { ExpressionExtractorInterface } from '../expression-extractor-interface';
+import { type ExpressionExtractorInterface } from '../expression-extractor-interface';
 import { FormatRfcXml } from './standards/format-rfc-xml';
 import { FormatTotal10x6 } from './standards/format-total10x6';
 
 export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implements ExpressionExtractorInterface {
-    private _matchDetector: MatchDetector;
+    private readonly _matchDetector: MatchDetector;
 
     constructor() {
         super();
@@ -26,6 +26,7 @@ export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implemen
         if (!this.matches(document)) {
             throw new UnmatchedDocumentException('The document is not a CFDI 3.2');
         }
+
         const helper = new DomHelper(document);
 
         const uuid = helper.getAttribute('cfdi:Comprobante', 'cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID');
@@ -47,10 +48,10 @@ export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implemen
 
     public format(values: Record<string, string>): string {
         return `?${[
-            `re=${this.formatRfc(values['re'] || '')}`,
-            `rr=${this.formatRfc(values['rr'] || '')}`,
-            `tt=${this.formatTotal(values['tt'] || '')}`,
-            `id=${values['id'] || ''}`
+            `re=${this.formatRfc(values.re || '')}`,
+            `rr=${this.formatRfc(values.rr || '')}`,
+            `tt=${this.formatTotal(values.tt || '')}`,
+            `id=${values.id || ''}`
         ].join('&')}`;
     }
 }
