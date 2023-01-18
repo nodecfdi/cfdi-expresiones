@@ -51,14 +51,30 @@ https://prodretencionverificacion.clouda.sat.gob.mx/?id=ad662d33-6934-459c-a128-
 
 ## Instalación
 
-```shell
+NPM
+
+```bash
 npm i @nodecfdi/cfdi-expresiones --save
 ```
 
-o
+YARN
 
-```shell
+```bash
 yarn add @nodecfdi/cfdi-expresiones
+```
+
+PNPM
+
+```bash
+pnpm add @nodecfdi/cfdi-expresiones
+```
+
+CDN - Browser
+
+Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-expresiones@2.1.3/dist...
+
+```html
+<script src="https://unpkg.com/@nodecfdi/cfdi-expresiones@<latest-version>/dist/cfdi-expresiones.global.js"></script>
 ```
 
 ## Ejemplo básico de uso
@@ -68,9 +84,9 @@ acceso a Document, por lo que para poder pasar el document a la lib usaremos la 
 nuestro documento y pasárselo a esta lib.
 
 ```ts
-import {readFileSync} from 'fs';
-import {DiscoverExtractor} from '@nodecfdi/cfdi-expresiones';
-import {DOMParser} from 'xmldom';
+import { readFileSync } from 'fs';
+import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
+import { DOMParser } from '@xmldom/xmldom';
 // creamos el extractor
 const extractor = new DiscoverExtractor();
 // Accedemos al contenido en nuestro archivo XML
@@ -85,7 +101,7 @@ const values = extractor.obtain(document);
 
 Nota: Actualmente la librería requiere que le pases un objeto de tipo Document, existen muchas libs en node que te dan
 el objeto que implementa esa interfaz, en esta lib usamos para pruebas la
-librería [xmldom](https://www.npmjs.com/package/xmldom). Y se recomienda usar dicha lib para evitar cualquier error.
+librería [xmldom](https://www.npmjs.com/package/@xmldom/xmldom). Y se recomienda usar dicha lib para evitar cualquier error. Para browser se recomienda usar los nativos del Api Web.
 
 ## Soporte
 
@@ -128,7 +144,7 @@ The `@nodecfdi/cfdi-expresiones` library is copyright © [NodeCfdi](https://gith
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-expresiones.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-expresiones.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/workflow/status/nodecfdi/cfdi-expresiones/build/main?logo=github-actions
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-expresiones/build.yml?branch=main
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-expresiones&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-expresiones&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-expresiones/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
