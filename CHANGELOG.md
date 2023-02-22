@@ -1,5 +1,12 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.4
+
+### Patch Changes - Change export for build process using bundlers
+
+- Resolve exports for usage with bundlers like a vite|rollup
+- Update dependencies
+
 ## 2.1.3
 
 ### Change build tool from microbundle to rollup
