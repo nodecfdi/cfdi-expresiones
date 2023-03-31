@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable unicorn/no-null */
-import { DomValidators } from '@nodecfdi/cfdiutils-common';
+/* eslint-disable @typescript-eslint/ban-types */
 import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
 import { ElementNotFoundException } from '../exceptions/element-not-found-exception';
 
@@ -24,14 +22,14 @@ export class DomHelper {
         const value = this.findAttribute(...path);
         if (value === null) {
             const attribute = path.pop();
-            throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute} not found`);
+            throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute!} not found`);
         }
 
         return value;
     }
 
     public findAttribute(...path: string[]): string | null {
-        const attribute = `${path.pop()}`;
+        const attribute = `${path.pop()!}`;
         const element = this.findElement(...path);
         if (element === null) {
             return null;
@@ -73,8 +71,8 @@ export class DomHelper {
 
     public findFirstChildByName(parent: Element, name: string): Element | null {
         for (let children = parent.firstChild; children; children = children.nextSibling) {
-            if (DomValidators.isElement(children) && name === children.nodeName) {
-                return children;
+            if (children.nodeType === 1 && name === children.nodeName) {
+                return children as Element;
             }
         }
 
