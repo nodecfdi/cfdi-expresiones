@@ -1,5 +1,16 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.5
+
+### Patch Changes - Update dependencies and maintanence in general
+
+- Remove unnecesary dependency library `@nodecfdi/cfdiutils-common`
+- Update readme with latest release version
+- Fixed CI error
+- Fixed exports for support commonjs and module type correctly
+- Fixed generate types (typescript)
+- Update dependencies
+
 ## 2.1.4
 
 ### Patch Changes - Change export for build process using bundlers
