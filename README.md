@@ -71,7 +71,7 @@ pnpm add @nodecfdi/cfdi-expresiones
 
 CDN - Browser
 
-Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-expresiones@2.1.3/dist...
+Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-expresiones@2.1.5/dist...
 
 ```html
 <script src="https://unpkg.com/@nodecfdi/cfdi-expresiones@<latest-version>/dist/cfdi-expresiones.global.js"></script>
