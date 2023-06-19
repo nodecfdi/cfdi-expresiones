@@ -70,7 +70,7 @@
         "prettier": "^2.8.7",
         "rimraf": "^4.4.1",
         "ts-mixer": "^6.0.3",
-        "tsup": "^6.7.0",
+        "tsup": "^7.0.0",
         "typedoc": "^0.24.0",
         "typedoc-theme-hierarchy": "^3.1.0",
         "typescript": "^5.0.3",
