@@ -9,6 +9,7 @@ const sharedConfig = defineConfig({
     splitting: false,
     sourcemap: true,
     format: ['esm', 'cjs', 'iife'],
+    noExternal: ['ts-mixer'],
     minify: isCI,
     shims: true,
 });
