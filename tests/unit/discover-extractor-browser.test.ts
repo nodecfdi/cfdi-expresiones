@@ -3,9 +3,14 @@
  */
 
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { Comprobante40, Comprobante32, Comprobante33, Retenciones10, Retenciones20, DiscoverExtractor } from '~/index';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
 import { useDomDocuments } from './dom-documents-test-case';
+import { Comprobante40 } from 'src/extractors/comprobante40';
+import { Comprobante32 } from 'src/extractors/comprobante32';
+import { Comprobante33 } from 'src/extractors/comprobante33';
+import { Retenciones10 } from 'src/extractors/retenciones10';
+import { Retenciones20 } from 'src/extractors/retenciones20';
+import { DiscoverExtractor } from 'src/discover-extractor';
+import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
 
 describe('DiscoverExtractor_Browser', () => {
     let extractor: DiscoverExtractor;
@@ -16,7 +21,7 @@ describe('DiscoverExtractor_Browser', () => {
         documentRet10Foreign,
         documentRet10Mexican,
         documentRet20Foreign,
-        documentRet20Mexican
+        documentRet20Mexican,
     } = useDomDocuments(new DOMParser(), new XMLSerializer(), document.implementation);
 
     const providerExpressionOnValidDocuments: Array<[string, Document, string]> = [
@@ -26,7 +31,7 @@ describe('DiscoverExtractor_Browser', () => {
         ['ret10Mexican', documentRet10Mexican(), 'RET10'],
         ['ret10Foreign', documentRet10Foreign(), 'RET10'],
         ['ret20Foreign', documentRet20Foreign(), 'RET20'],
-        ['ret20Mexican', documentRet20Mexican(), 'RET20']
+        ['ret20Mexican', documentRet20Mexican(), 'RET20'],
     ];
 
     beforeEach(() => {
@@ -47,7 +52,7 @@ describe('DiscoverExtractor_Browser', () => {
             new Comprobante33(),
             new Comprobante32(),
             new Retenciones20(),
-            new Retenciones10()
+            new Retenciones10(),
         ]);
     });
 
@@ -58,7 +63,7 @@ describe('DiscoverExtractor_Browser', () => {
         expect(currentExpressionExtractors).toStrictEqual([
             new Comprobante40(),
             new Comprobante33(),
-            new Comprobante32()
+            new Comprobante32(),
         ]);
     });
 
@@ -71,7 +76,7 @@ describe('DiscoverExtractor_Browser', () => {
         const _document = Xml.newDocument();
         expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
         expect(() => extractor.extract(_document)).toThrow(
-            'Cannot discover any DiscoverExtractor that matches with document'
+            'Cannot discover any DiscoverExtractor that matches with document',
         );
     });
 
@@ -80,7 +85,7 @@ describe('DiscoverExtractor_Browser', () => {
         (_name: string, _document: Document) => {
             expect(extractor.matches(_document)).toBeTruthy();
             expect(extractor.extract(_document)).not.toBe('');
-        }
+        },
     );
 
     test.each(providerExpressionOnValidDocuments)(
@@ -90,7 +95,7 @@ describe('DiscoverExtractor_Browser', () => {
             const expression = extractor.format(values, type);
             const expectedExpression = extractor.extract(_document);
             expect(expression).toBe(expectedExpression);
-        }
+        },
     );
 
     test('format using no type', () => {

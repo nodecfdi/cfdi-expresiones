@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/no-null */
-/* eslint-disable @typescript-eslint/ban-types */
 import { type ExpressionExtractorInterface } from './expression-extractor-interface';
 import { Comprobante33 } from './extractors/comprobante33';
 import { Comprobante32 } from './extractors/comprobante32';
@@ -25,7 +23,7 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
             new Comprobante33(),
             new Comprobante32(),
             new Retenciones20(),
-            new Retenciones10()
+            new Retenciones10(),
         ];
     }
 

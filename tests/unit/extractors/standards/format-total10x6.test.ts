@@ -1,4 +1,4 @@
-import { FormatTotal10x6 } from '~/extractors/standards/format-total10x6';
+import { FormatTotal10x6 } from 'src/extractors/standards/format-total10x6';
 
 describe('FormatTotal10x6', () => {
     /**
@@ -12,7 +12,7 @@ describe('FormatTotal10x6', () => {
         ['1000.00000', '0000001000.000000'],
         ['0', '0000000000.000000'],
         ['0.00', '0000000000.000000'],
-        ['', '0000000000.000000']
+        ['', '0000000000.000000'],
     ])('how total must be formatted input: %s - expected format: %s', (input: string, expectedFormat: string) => {
         const extractor = new FormatTotal10x6();
 

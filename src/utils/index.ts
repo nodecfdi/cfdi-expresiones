@@ -9,7 +9,7 @@ const toFixed = (number: number, decimals: number): string => {
 };
 
 const rtrim = (string_: string, chart?: string): string => {
-    chart = chart ? String(chart).replace(/([$()*+./:?[\]^{}])/g, '\\$1') : ' \\s\u00A0';
+    chart = chart ? String(chart).replaceAll(/([$()*+./:?[\]^{}])/g, '\\$1') : ' \\s\u00A0';
     const re = new RegExp('[' + chart + ']+$', 'g');
 
     return String(string_).replace(re, '');
@@ -30,11 +30,11 @@ const html_entities = (string_: string): string => {
         // to break out of (un)quoted attribute values or HTML comments.
         // See http://html5sec.org/#102, http://html5sec.org/#108, and
         // http://html5sec.org/#133.
-        '`': '&#x60;'
+        '`': '&#x60;',
     };
     const replaceTag = (tag: string): string => tagsToReplace[tag];
 
-    return string_.replace(/["&'<>`]/g, replaceTag);
+    return string_.replaceAll(/["&'<>`]/g, replaceTag);
 };
 
 export { toFixed, rtrim, html_entities };

@@ -9,7 +9,7 @@ export class Comprobante40 extends Comprobante20170701 implements ExpressionExtr
     constructor() {
         super(
             new MatchDetector('http://www.sat.gob.mx/cfd/4', 'cfdi:Comprobante', 'Version', '4.0'),
-            'The document is not a CFDI 4.0'
+            'The document is not a CFDI 4.0',
         );
     }
 

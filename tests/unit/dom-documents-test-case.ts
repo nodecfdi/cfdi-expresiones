@@ -1,11 +1,11 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { useTestCase } from '../test-case';
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
+import { useTestCase } from '../test-case';
 
 const useDomDocuments = (
     domParser: DOMParser,
     xmlSerializer: XMLSerializer,
-    domImplementation: DOMImplementation
+    domImplementation: DOMImplementation,
 ): {
     documentCfdi40: () => Document;
     documentCfdi33: () => Document;
@@ -74,7 +74,7 @@ const useDomDocuments = (
         documentRet20Mexican,
         documentRet10Foreign,
         documentRet20Foreign,
-        documentLoad
+        documentLoad,
     };
 };
 

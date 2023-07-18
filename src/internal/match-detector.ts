@@ -5,11 +5,11 @@ export class MatchDetector {
         public namespaceUri: string,
         public elementName: string,
         public versionName: string,
-        public versionValue: string
+        public versionValue: string,
     ) {}
 
-    public check(document: Document): void {
-        const { documentElement } = document;
+    public check(document?: Document): void {
+        const documentElement = document?.documentElement;
         if (!documentElement) {
             throw new UnmatchedDocumentException('Document does not have root element');
         }

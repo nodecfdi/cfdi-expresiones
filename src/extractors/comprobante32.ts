@@ -38,7 +38,7 @@ export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implemen
             re: rfcEmisor,
             rr: rfcReceptor,
             tt: total,
-            id: uuid
+            id: uuid,
         };
     }
 
@@ -51,7 +51,7 @@ export class Comprobante32 extends Mixin(FormatRfcXml, FormatTotal10x6) implemen
             `re=${this.formatRfc(values.re || '')}`,
             `rr=${this.formatRfc(values.rr || '')}`,
             `tt=${this.formatTotal(values.tt || '')}`,
-            `id=${values.id || ''}`
+            `id=${values.id || ''}`,
         ].join('&')}`;
     }
 }

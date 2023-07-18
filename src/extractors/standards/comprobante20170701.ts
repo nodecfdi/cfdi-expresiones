@@ -16,6 +16,7 @@ abstract class Comprobante20170701
     implements ExpressionExtractorInterface
 {
     private readonly _matchDetector: MatchDetector;
+
     private readonly _unmatchedExceptionMessage: string;
 
     constructor(matchDetector: MatchDetector, unmatchedExceptionMessage: string) {
@@ -45,7 +46,7 @@ abstract class Comprobante20170701
             re: rfcEmisor,
             rr: rfcReceptor,
             tt: total,
-            fe: sello
+            fe: sello,
         };
     }
 
@@ -59,7 +60,7 @@ abstract class Comprobante20170701
             `re=${this.formatRfc(values.re || '')}`,
             `rr=${this.formatRfc(values.rr || '')}`,
             `tt=${this.formatTotal(values.tt || '')}`,
-            `fe=${this.formatSello(values.fe || '')}`
+            `fe=${this.formatSello(values.fe || '')}`,
         ].join('&')}`;
     }
 

@@ -15,29 +15,36 @@
     "private": false,
     "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
     "license": "MIT",
-    "type": "commonjs",
-    "main": "./dist/cfdi-expresiones.js",
-    "module": "./dist/cfdi-expresiones.mjs",
+    "type": "module",
+    "main": "./dist/cfdi-expresiones.cjs",
+    "module": "./dist/cfdi-expresiones.js",
     "unpkg": "./dist/cfdi-expresiones.global.js",
     "browser": "./dist/cfdi-expresiones.global.js",
     "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/cfdi-expresiones.js"
+            },
+            "require": {
+                "types": "./dist/index.d.cts",
+                "default": "./dist/cfdi-expresiones.cjs"
+            }
+        }
+    },
     "files": [
         "dist"
     ],
     "scripts": {
-        "preinstall": "npx only-allow pnpm",
         "prepare": "is-ci || husky install",
-        "lint": "eslint --fix --ext .js,.ts .",
-        "lint:check": "eslint --ext .js,.ts .",
-        "format": "prettier --write \"**/*.{js,ts,json}\"",
-        "format:check": "prettier --check \"**/*.{js,ts,json}\"",
+        "lint": "eslint . --fix --ext .ts,.js",
+        "lint:check": "eslint . --ext .ts,.js",
         "test": "vitest",
         "test:run": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "build": "pnpm prebuild && tsup && pnpm gen:types",
-        "prebuild": "rimraf dist",
+        "build": "rimraf dist && tsup",
         "gen:docs": "rimraf docs && typedoc --options typedoc.json",
-        "gen:types": "api-extractor run --local",
         "release": "pnpm run build && pnpm changeset publish"
     },
     "repository": "https://github.com/nodecfdi/cfdi-expresiones",
@@ -46,35 +53,28 @@
     },
     "homepage": "https://github.com/nodecfdi/cfdi-expresiones",
     "devDependencies": {
-        "@changesets/cli": "^2.26.1",
-        "@commitlint/cli": "^17.5.1",
-        "@microsoft/api-extractor": "^7.34.4",
-        "@nodecfdi/cfdiutils-common": "^1.2.4",
+        "@changesets/cli": "^2.26.2",
+        "@commitlint/cli": "^17.6.6",
+        "@nodecfdi/eslint-config-nodecfdi": "^0.1.5",
+        "@nodecfdi/cfdiutils-common": "^1.2.5",
         "@nrsk/config-conventional": "^1.0.0",
         "@types/is-ci": "^3.0.0",
-        "@types/node": "^18.15.11",
-        "@typescript-eslint/eslint-plugin": "^5.57.0",
-        "@typescript-eslint/parser": "^5.57.0",
+        "@types/node": "^20.4.2",
         "@vitest/coverage-istanbul": "^0.33.0",
-        "@xmldom/xmldom": "^0.8.7",
-        "eslint": "^8.37.0",
-        "eslint-config-prettier": "^8.8.0",
-        "eslint-config-xo": "^0.43.1",
-        "eslint-config-xo-typescript": "^0.57.0",
-        "eslint-plugin-tsdoc": "^0.2.17",
-        "eslint-plugin-unicorn": "^46.0.0",
+        "@xmldom/xmldom": "^0.8.9",
+        "eslint": "^8.45.0",
         "husky": "^8.0.3",
         "is-ci": "^3.0.1",
-        "jsdom": "^21.1.1",
-        "lint-staged": "^13.2.0",
-        "prettier": "^2.8.7",
-        "rimraf": "^4.4.1",
+        "jsdom": "^22.1.0",
+        "lint-staged": "^13.2.3",
+        "prettier": "^3.0.0",
+        "rimraf": "^5.0.1",
         "ts-mixer": "^6.0.3",
-        "tsup": "^6.7.0",
-        "typedoc": "^0.24.0",
-        "typedoc-theme-hierarchy": "^3.1.0",
-        "typescript": "^5.0.3",
-        "vite": "^4.2.1",
+        "tsup": "^7.1.0",
+        "typedoc": "^0.24.8",
+        "typedoc-theme-hierarchy": "^4.0.0",
+        "typescript": "^5.1.6",
+        "vite": "^4.4.4",
         "vitest": "^0.33.0"
     },
     "commitlint": {
@@ -83,7 +83,7 @@
         ]
     },
     "lint-staged": {
-        "*.{js,ts,json}": [
+        "*.{json}": [
             "prettier --write"
         ],
         "*.{js,ts}": [
@@ -91,7 +91,7 @@
         ]
     },
     "engines": {
-        "node": ">= 14.16.0"
+        "node": ">= 16"
     },
     "browserslist": [
         "defaults",

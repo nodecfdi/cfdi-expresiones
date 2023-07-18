@@ -4,33 +4,33 @@ import { defineConfig, type Options } from 'tsup';
 const entry = 'src/index.ts';
 
 const sharedConfig = defineConfig({
+    name: 'cfdi-expresiones',
     globalName: 'cfdiExpresiones',
     splitting: false,
     sourcemap: true,
     format: ['esm', 'cjs', 'iife'],
-    treeshake: true,
     minify: isCI,
-    bundle: true,
-    shims: true
+    shims: true,
 });
 
 const mainConfig = defineConfig({
     ...sharedConfig,
     entry: {
-        'cfdi-expresiones': entry
+        'cfdi-expresiones': entry,
     },
-    dts: false
+    dts: false,
 }) as Options;
 
 const dtsConfig = defineConfig({
     ...sharedConfig,
     entry: {
-        'cfdi-expresiones': entry
+        'cfdi-expresiones': entry,
     },
     dts: {
         entry,
-        only: true
-    }
+        only: true,
+        resolve: true,
+    },
 }) as Options;
 
 export default defineConfig([mainConfig, dtsConfig]);
