@@ -1,7 +1,3 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { useDomDocuments } from '../dom-documents-test-case';
 import { AttributeNotFoundException } from 'src/exceptions/attribute-not-found-exception';
 import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';

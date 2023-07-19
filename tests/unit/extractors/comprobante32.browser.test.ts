@@ -1,7 +1,3 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { useDomDocuments } from '../dom-documents-test-case';
 import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
 import { Comprobante32 } from 'src/extractors/comprobante32';

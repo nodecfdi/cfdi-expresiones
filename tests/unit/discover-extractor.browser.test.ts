@@ -1,7 +1,3 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { useDomDocuments } from './dom-documents-test-case';
 import { Comprobante40 } from 'src/extractors/comprobante40';

@@ -1,7 +1,3 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { useTestCase } from '../../test-case';
 import { DomHelper } from 'src/internal/dom-helper';

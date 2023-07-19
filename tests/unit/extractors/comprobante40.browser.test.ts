@@ -1,13 +1,9 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { useDomDocuments } from '../dom-documents-test-case';
-import { Comprobante33 } from 'src/extractors/comprobante33';
+import { Comprobante40 } from 'src/extractors/comprobante40';
 import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
 
-describe('Extractors/Comprobante33_Browser', () => {
-    let extractor: Comprobante33;
+describe('Extractors/Comprobante40_Browser', () => {
+    let extractor: Comprobante40;
     let _document: Document;
     const { documentCfdi32, documentCfdi33, documentCfdi40 } = useDomDocuments(
         new DOMParser(),
@@ -16,40 +12,40 @@ describe('Extractors/Comprobante33_Browser', () => {
     );
 
     beforeEach(() => {
-        extractor = new Comprobante33();
-        _document = documentCfdi33();
+        extractor = new Comprobante40();
+        _document = documentCfdi40();
     });
 
     test('unique name', () => {
-        expect(extractor.uniqueName()).toBe('CFDI33');
+        expect(extractor.uniqueName()).toBe('CFDI40');
     });
 
-    test('matches cfdi33', () => {
+    test('matches cfdi40', () => {
         expect(extractor.matches(_document)).toBeTruthy();
     });
 
-    test('extract cfdi33', () => {
+    test('extract cfdi40', () => {
         const expectedExpression = [
             'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?',
-            'id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC&re=POT9207213D6&rr=DIM8701081LA&tt=2010.01&fe=/OAgdg==',
+            'id=04BF2854-FE7D-4377-9196-71248F060ABB&re=CSM190311AH6&rr=MCI7306249Y1&tt=459.36&fe=5tSZhA==',
         ].join('');
 
         expect(extractor.extract(_document)).toBe(expectedExpression);
     });
 
     test.each([
-        ['cfdi40', documentCfdi40()],
+        ['cfdi33', documentCfdi33()],
         ['cfdi32', documentCfdi32()],
     ])('not matches cfdi with %s', (_name: string, _document: Document) => {
         expect(extractor.matches(_document)).toBeFalsy();
     });
 
     test.each([
-        ['cfdi40', documentCfdi40()],
+        ['cfdi33', documentCfdi33()],
         ['cfdi32', documentCfdi32()],
-    ])('extract not matches throw exception with %', (_name: string, _document: Document) => {
+    ])('extract not matches throw exception with %s', (_name: string, _document: Document) => {
         expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
-        expect(() => extractor.extract(_document)).toThrow('The document is not a CFDI 3.3');
+        expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 4.0');
     });
 
     test('format uses formatting', () => {

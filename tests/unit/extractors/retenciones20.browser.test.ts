@@ -1,7 +1,3 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { useDomDocuments } from '../dom-documents-test-case';
 import { Retenciones20 } from 'src/extractors/retenciones20';
 import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
