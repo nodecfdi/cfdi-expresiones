@@ -1,4 +1,4 @@
-import { FormatTotal18x6 } from '~/extractors/standards/format-total18x6';
+import { FormatTotal18x6 } from 'src/extractors/standards/format-total18x6';
 
 describe('FormatTotal18x6', () => {
     test.each([
@@ -9,7 +9,7 @@ describe('FormatTotal18x6', () => {
         ['1000.00000', '1000.0'],
         ['0', '0.0'],
         ['0.00', '0.0'],
-        ['', '0.0']
+        ['', '0.0'],
     ])('how total must be formatted input: %s - expected format: %s', (input: string, expectedFormat: string) => {
         const extractor = new FormatTotal18x6();
 

@@ -1,8 +1,8 @@
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
 import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
-import { MatchDetector } from '~/internal/match-detector';
 import { useTestCase } from '../../test-case';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { MatchDetector } from 'src/internal/match-detector';
+import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
 
 describe('Internal/MatchDetector', () => {
     let detector: MatchDetector;

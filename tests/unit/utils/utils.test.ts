@@ -1,4 +1,4 @@
-import { html_entities, rtrim, toFixed } from '~/utils';
+import { html_entities, rtrim, toFixed } from 'src/utils';
 
 describe('utils', () => {
     test('to Fixed floating point with another decimal different of 5', () => {

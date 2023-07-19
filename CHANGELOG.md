@@ -1,5 +1,15 @@
 # @nodecfdi/cfdi-expresiones ChangeLog
 
+## 2.1.6
+
+### Patch Changes - Maintenance and small optimizations
+
+- Update dependencies
+- Update types exports for typescript module and commonjs
+- Update to ESM support
+- Update CI workflow for fix pipeline to latest github and pnpm changes
+- Drop support to node versions < 16
+
 ## 2.1.5
 
 ### Patch Changes - Update dependencies and maintanence in general

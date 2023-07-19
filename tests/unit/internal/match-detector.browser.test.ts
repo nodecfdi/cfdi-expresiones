@@ -1,11 +1,7 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { MatchDetector } from '~/internal/match-detector';
 import { useTestCase } from '../../test-case';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
+import { MatchDetector } from 'src/internal/match-detector';
+import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
 
 describe('Internal/MatchDetector_Browser', () => {
     let detector: MatchDetector;

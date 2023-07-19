@@ -1,7 +1,7 @@
 import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
-import { Comprobante32 } from '~/extractors/comprobante32';
 import { useDomDocuments } from '../dom-documents-test-case';
+import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
+import { Comprobante32 } from 'src/extractors/comprobante32';
 
 describe('Extractors/Comprobante32', () => {
     let extractor: Comprobante32;
@@ -9,7 +9,7 @@ describe('Extractors/Comprobante32', () => {
     const { documentCfdi32, documentCfdi33, documentCfdi40 } = useDomDocuments(
         new DOMParser(),
         new XMLSerializer(),
-        new DOMImplementation()
+        new DOMImplementation(),
     );
 
     beforeEach(() => {
@@ -33,14 +33,14 @@ describe('Extractors/Comprobante32', () => {
 
     test.each([
         ['cfdi40', documentCfdi40()],
-        ['cfdi33', documentCfdi33()]
+        ['cfdi33', documentCfdi33()],
     ])('not matches cfdi with %s', (_name: string, document: Document) => {
         expect(extractor.matches(document)).toBeFalsy();
     });
 
     test.each([
         ['cfdi40', documentCfdi40()],
-        ['cfdi33', documentCfdi33()]
+        ['cfdi33', documentCfdi33()],
     ])('extract not matches throw exception with %s', (_name: string, document: Document) => {
         expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
         expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 3.2');
@@ -51,13 +51,13 @@ describe('Extractors/Comprobante32', () => {
             '?re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
             '&tt=0000001234.567800',
-            '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
+            '&id=CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
         ].join('');
         const parameters = {
             re: 'Ñ&A010101AAA',
             rr: 'Ñ&A991231AA0',
             tt: '1234.5678',
-            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC'
+            id: 'CEE4BE01-ADFA-4DEB-8421-ADD60F0BEDAC',
         };
         expect(extractor.format(parameters)).toBe(expected32);
     });

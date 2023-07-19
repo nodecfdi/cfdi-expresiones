@@ -1,17 +1,15 @@
-/* eslint-disable unicorn/no-null */
-/* eslint-disable @typescript-eslint/ban-types */
 import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception';
 import { ElementNotFoundException } from '../exceptions/element-not-found-exception';
 
 export class DomHelper {
-    private readonly _document: Document;
+    private readonly _document?: Document;
 
     constructor(document: Document) {
         this._document = document;
     }
 
     public rootElement(): Element {
-        if (!this._document.documentElement) {
+        if (!this._document?.documentElement) {
             throw new SyntaxError('DOMDocument does not have root element');
         }
 
@@ -22,14 +20,14 @@ export class DomHelper {
         const value = this.findAttribute(...path);
         if (value === null) {
             const attribute = path.pop();
-            throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute!} not found`);
+            throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute} not found`);
         }
 
         return value;
     }
 
     public findAttribute(...path: string[]): string | null {
-        const attribute = `${path.pop()!}`;
+        const attribute = `${path.pop()}`;
         const element = this.findElement(...path);
         if (element === null) {
             return null;

@@ -1,12 +1,8 @@
-/**
- * \@vitest-environment jsdom
- */
-
 import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { DomHelper } from '~/internal/dom-helper';
 import { useTestCase } from '../../test-case';
-import { ElementNotFoundException } from '~/exceptions/element-not-found-exception';
-import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
+import { DomHelper } from 'src/internal/dom-helper';
+import { ElementNotFoundException } from 'src/exceptions/element-not-found-exception';
+import { AttributeNotFoundException } from 'src/exceptions/attribute-not-found-exception';
 
 describe('Internal/DomHelper_Browser', () => {
     let _document: Document;
@@ -60,19 +56,19 @@ describe('Internal/DomHelper_Browser', () => {
 
     test('throws exception getting invalid element in depth', () => {
         expect(() => helper.getElement('b:books', 'b:library', 't:topic', 'b:book', 'b:foo')).toThrow(
-            ElementNotFoundException
+            ElementNotFoundException,
         );
         expect(() => helper.getElement('b:books', 'b:library', 't:topic', 'b:book', 'b:foo')).toThrow(
-            'Element b:books/b:library/t:topic/b:book/b:foo not found'
+            'Element b:books/b:library/t:topic/b:book/b:foo not found',
         );
     });
 
     test('throws exception getting invalid attribute in depth', () => {
         expect(() => helper.getAttribute('b:books', 'b:library', 't:topic', 'b:book', 'foo')).toThrow(
-            AttributeNotFoundException
+            AttributeNotFoundException,
         );
         expect(() => helper.getAttribute('b:books', 'b:library', 't:topic', 'b:book', 'foo')).toThrow(
-            'Attribute b:books/b:library/t:topic/b:book@foo not found'
+            'Attribute b:books/b:library/t:topic/b:book@foo not found',
         );
     });
 

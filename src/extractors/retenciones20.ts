@@ -21,7 +21,7 @@ export class Retenciones20
             'http://www.sat.gob.mx/esquemas/retencionpago/2',
             'retenciones:Retenciones',
             'Version',
-            '2.0'
+            '2.0',
         );
     }
 
@@ -44,7 +44,7 @@ export class Retenciones20
             'retenciones:Retenciones',
             'retenciones:Complemento',
             'tfd:TimbreFiscalDigital',
-            'UUID'
+            'UUID',
         );
         const rfcEmisor = helper.getAttribute('retenciones:Retenciones', 'retenciones:Emisor', 'RfcE');
         const { rfcReceptorKey, rfcReceptor } = this.obtainReceptorValues(helper);
@@ -57,7 +57,7 @@ export class Retenciones20
             re: rfcEmisor,
             [rfcReceptorKey]: rfcReceptor,
             tt: total,
-            fe: sello
+            fe: sello,
         };
     }
 
@@ -82,7 +82,7 @@ export class Retenciones20
             `re=${this.formatRfc(values.re || '')}`,
             `${receptorKey}=${values[receptorKey] || ''}`,
             `tt=${this.formatTotal(values.tt || '')}`,
-            `fe=${this.formatSello(values.fe || '')}`
+            `fe=${this.formatSello(values.fe || '')}`,
         ].join('&')}`;
     }
 
@@ -92,7 +92,7 @@ export class Retenciones20
             'retenciones:Retenciones',
             'retenciones:Receptor',
             'retenciones:Nacional',
-            'RfcR'
+            'RfcR',
         );
 
         if (rfcReceptor === null) {
@@ -101,7 +101,7 @@ export class Retenciones20
                 'retenciones:Retenciones',
                 'retenciones:Receptor',
                 'retenciones:Extranjero',
-                'NumRegIdTribR'
+                'NumRegIdTribR',
             );
         }
 
@@ -111,7 +111,7 @@ export class Retenciones20
 
         return {
             rfcReceptorKey,
-            rfcReceptor
+            rfcReceptor,
         };
     }
 }

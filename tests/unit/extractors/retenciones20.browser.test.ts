@@ -1,11 +1,7 @@
-/**
- * \@vitest-environment jsdom
- */
-
-import { Retenciones20 } from '~/extractors/retenciones20';
-import { UnmatchedDocumentException } from '~/exceptions/unmatched-document-exception';
-import { AttributeNotFoundException } from '~/exceptions/attribute-not-found-exception';
 import { useDomDocuments } from '../dom-documents-test-case';
+import { Retenciones20 } from 'src/extractors/retenciones20';
+import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
+import { AttributeNotFoundException } from 'src/exceptions/attribute-not-found-exception';
 
 describe('Extractors/Retenciones20_Browser', () => {
     let extractor: Retenciones20;
@@ -33,7 +29,7 @@ describe('Extractors/Retenciones20_Browser', () => {
             '&re=AAA010101AAA',
             '&nr=00000000001234567890',
             '&tt=2000000.0',
-            '&fe=qsIe6w=='
+            '&fe=qsIe6w==',
         ].join('');
         expect(extractor.extract(_document)).toBe(expectedExpression);
     });
@@ -46,21 +42,21 @@ describe('Extractors/Retenciones20_Browser', () => {
             '&re=AAA010101AAA',
             '&rr=SUL010720JN8',
             '&tt=4076.73',
-            '&fe=qsIe6w=='
+            '&fe=qsIe6w==',
         ].join('');
         expect(extractor.extract(_document)).toBe(expectedExpression);
     });
 
     test.each([
         ['RET10Mexican', documentRet10Mexican()],
-        ['RET10Foreign', documentRet10Foreign()]
+        ['RET10Foreign', documentRet10Foreign()],
     ])('not matches retenciones %s', (_name: string, _document: Document) => {
         expect(extractor.matches(_document)).toBeFalsy();
     });
 
     test.each([
         ['RET10Mexican', documentRet10Mexican()],
-        ['RET10Foreign', documentRet10Foreign()]
+        ['RET10Foreign', documentRet10Foreign()],
     ])('extract not matches throws exception %s', (_name: string, _document: Document) => {
         expect(() => extractor.extract(_document)).toThrow(UnmatchedDocumentException);
         expect(() => extractor.extract(_document)).toThrow('The document is not a RET 2.0');
@@ -80,14 +76,14 @@ describe('Extractors/Retenciones20_Browser', () => {
             '&re=Ñ&amp;A010101AAA',
             '&rr=Ñ&amp;A991231AA0',
             '&tt=123456.78',
-            '&fe=qsIe6w=='
+            '&fe=qsIe6w==',
         ].join('');
         const parameters = {
             id: 'AAAAAAAA-BBBB-CCCC-DDDD-000000000000',
             re: 'Ñ&A010101AAA',
             rr: 'Ñ&A991231AA0',
             tt: '123456.78',
-            fe: '...qsIe6w=='
+            fe: '...qsIe6w==',
         };
         expect(extractor.format(parameters)).toBe(expectedRetenciones20);
     });
@@ -99,14 +95,14 @@ describe('Extractors/Retenciones20_Browser', () => {
             '&re=Ñ&amp;A010101AAA',
             '&nr=0000000000000000000X',
             '&tt=123456.78',
-            '&fe=qsIe6w=='
+            '&fe=qsIe6w==',
         ].join('');
         const parameters = {
             id: 'AAAAAAAA-BBBB-CCCC-DDDD-000000000000',
             re: 'Ñ&A010101AAA',
             nr: 'X',
             tt: '123456.78',
-            fe: '...qsIe6w=='
+            fe: '...qsIe6w==',
         };
         expect(extractor.format(parameters)).toBe(expectedRetenciones20);
     });
