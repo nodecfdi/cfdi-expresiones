@@ -1,37 +1,16 @@
-import isCI from 'is-ci';
 import { defineConfig, type Options } from 'tsup';
 
-const entry = 'src/index.ts';
-
-const sharedConfig = defineConfig({
-    name: 'cfdi-expresiones',
-    globalName: 'cfdiExpresiones',
-    splitting: false,
-    sourcemap: true,
-    format: ['esm', 'cjs', 'iife'],
-    noExternal: ['ts-mixer'],
-    minify: isCI,
-    shims: true,
-});
-
 const mainConfig = defineConfig({
-    ...sharedConfig,
-    entry: {
-        'cfdi-expresiones': entry,
-    },
-    dts: false,
+  splitting: true,
+  clean: true,
+  name: 'cfdi-expresiones',
+  globalName: 'cfdiExpresiones',
+  treeshake: true,
+  format: ['esm', 'cjs', 'iife'],
+  shims: true,
+  entry: {
+    'cfdi-expresiones': 'src/index.ts',
+  },
 }) as Options;
 
-const dtsConfig = defineConfig({
-    ...sharedConfig,
-    entry: {
-        'cfdi-expresiones': entry,
-    },
-    dts: {
-        entry,
-        only: true,
-        resolve: true,
-    },
-}) as Options;
-
-export default defineConfig([mainConfig, dtsConfig]);
+export default mainConfig;
