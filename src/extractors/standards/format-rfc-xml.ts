@@ -1,7 +1,7 @@
-import { html_entities } from '../../utils';
+import { htmlEntities } from '../../utils/index.js';
 
 export class FormatRfcXml {
-    public formatRfc(rfc: string): string {
-        return html_entities(rfc);
-    }
+  public formatRfc(rfc: string): string {
+    return htmlEntities(rfc);
+  }
 }
