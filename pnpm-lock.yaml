@@ -12,8 +12,8 @@ devDependencies:
     specifier: ^17.6.6
     version: 17.6.6
   '@nodecfdi/cfdiutils-common':
-    specifier: ^1.2.5
-    version: 1.2.5
+    specifier: ^2.0.0
+    version: 2.0.1
   '@nodecfdi/eslint-config-nodecfdi':
     specifier: ^0.1.5
     version: 0.1.5(@typescript-eslint/eslint-plugin@6.1.0)(@typescript-eslint/parser@6.1.0)(eslint-config-prettier@8.8.0)(eslint-import-resolver-alias@1.1.2)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-eslint-comments@3.2.0)(eslint-plugin-import@2.27.5)(eslint-plugin-n@16.0.1)(eslint-plugin-prettier@5.0.0)(eslint-plugin-tsdoc@0.2.17)(eslint-plugin-unicorn@48.0.0)(eslint@8.45.0)(prettier@3.0.0)(typescript@5.1.6)
@@ -1009,8 +1009,8 @@ packages:
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
     dev: true
 
-  /@nodecfdi/cfdiutils-common@1.2.5:
-    resolution: {integrity: sha512-1VB/0TTh+z7o83CaJNFQ4C6IHK5HjtAVXjVwAvOEpslH9sPXvM1nXlOZITCCTDQN0yuigEY8ZNU70aax7HOBzg==}
+  /@nodecfdi/cfdiutils-common@2.0.1:
+    resolution: {integrity: sha512-U6KNaU2lhgoP8QYpKOgoXXqemXzgCOTeqGgtyIICpZKfr9W5UjVxlqfKNe7sZ8VbvA7JsnS4rkEAk+IEITw+vA==}
     engines: {node: '>=16.0.0'}
     dev: true
 
