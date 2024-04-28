@@ -1,6 +1,6 @@
 {
   "plugin": ["typedoc-material-theme"],
   "themeColor": "#badc69",
-  "entryPoints": ["./src/index.ts"],
+  "entryPoints": ["./index.ts"],
   "out": "./docs"
 }

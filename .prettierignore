@@ -1,11 +1,8 @@
-node_modules
 examples
+build
+dist
 docs
 coverage
-dist
-
-# Ignore artifacts:
-.husky
-.tsup
-pnpm-lock.yaml
-**/*.md
+*.html
+tests/_files
+.pnpm-store

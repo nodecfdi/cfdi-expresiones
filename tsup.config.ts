@@ -1,16 +1,10 @@
-import { defineConfig, type Options } from 'tsup';
+import { defineConfig } from 'tsup';
 
-const mainConfig = defineConfig({
-  splitting: true,
+export default defineConfig({
+  entry: ['./index.ts'],
+  outDir: './dist',
   clean: true,
-  name: 'cfdi-expresiones',
-  globalName: 'cfdiExpresiones',
-  treeshake: true,
-  format: ['esm', 'cjs', 'iife'],
-  shims: true,
-  entry: {
-    'cfdi-expresiones': 'src/index.ts',
-  },
-}) as Options;
-
-export default mainConfig;
+  format: ['esm', 'cjs'],
+  dts: true,
+  target: 'esnext',
+});
