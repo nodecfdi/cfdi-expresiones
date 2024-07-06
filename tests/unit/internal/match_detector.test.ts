@@ -1,18 +1,15 @@
-import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
-import { MatchDetector } from 'src/internal/match-detector';
-import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
-import { useTestCase } from '../../test-case.js';
+import { newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
+import { UnmatchedDocumentError } from '#src/errors';
+import { MatchDetector } from '#src/internal/match_detector';
+import { fileContentPath } from '#tests/test_utils';
 
-describe('Internal/MatchDetector', () => {
+describe('match detector', () => {
   let detector: MatchDetector;
   let document: Document;
-  const { fileContentPath } = useTestCase();
 
   beforeEach(() => {
-    install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     detector = new MatchDetector('http://example.com/books', 'b:books', 'version', 'v1');
-    document = Xml.newDocumentContent(fileContentPath('books.xml'));
+    document = newDocumentContent(fileContentPath('books.xml'));
   });
 
   test('check positive match', () => {
@@ -20,12 +17,12 @@ describe('Internal/MatchDetector', () => {
   });
 
   test('check without document element', () => {
-    document = Xml.newDocument();
+    document = newDocument();
     expect(detector.matches(document)).toBeFalsy();
 
     expect(() => {
       detector.check(document);
-    }).toThrow(UnmatchedDocumentException);
+    }).toThrow(UnmatchedDocumentError);
     expect(() => {
       detector.check(document);
     }).toThrow('Document does not have root element');
@@ -37,7 +34,7 @@ describe('Internal/MatchDetector', () => {
 
     expect(() => {
       detector.check(document);
-    }).toThrow(UnmatchedDocumentException);
+    }).toThrow(UnmatchedDocumentError);
     expect(() => {
       detector.check(document);
     }).toThrow('Document root element namespace does not match');
@@ -49,7 +46,7 @@ describe('Internal/MatchDetector', () => {
 
     expect(() => {
       detector.check(document);
-    }).toThrow(UnmatchedDocumentException);
+    }).toThrow(UnmatchedDocumentError);
     expect(() => {
       detector.check(document);
     }).toThrow('Document root element name does not match');
@@ -61,7 +58,7 @@ describe('Internal/MatchDetector', () => {
 
     expect(() => {
       detector.check(document);
-    }).toThrow(UnmatchedDocumentException);
+    }).toThrow(UnmatchedDocumentError);
     expect(() => {
       detector.check(document);
     }).toThrow('Document root element version attribute does not match');
@@ -73,7 +70,7 @@ describe('Internal/MatchDetector', () => {
 
     expect(() => {
       detector.check(document);
-    }).toThrow(UnmatchedDocumentException);
+    }).toThrow(UnmatchedDocumentError);
     expect(() => {
       detector.check(document);
     }).toThrow('Document root element version attribute does not match');

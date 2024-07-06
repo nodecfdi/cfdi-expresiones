@@ -1,6 +1,6 @@
-import { FormatRfcXml } from 'src/extractors/standards/format-rfc-xml';
+import { FormatRfcXml } from '#src/extractors/standards/format_rfc_xml';
 
-describe('FormatRfcXml', () => {
+describe('class FormatRfcXml', () => {
   test.each([
     ['AAA010101AAA', 'AAA010101AAA'],
     ['AAAA010101AAA', 'AAAA010101AAA'],

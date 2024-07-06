@@ -1,24 +1,26 @@
-import { type ExpressionExtractorInterface } from './expression-extractor-interface.js';
-import { Comprobante33 } from './extractors/comprobante33.js';
+import { UnmatchedDocumentError } from './errors.js';
 import { Comprobante32 } from './extractors/comprobante32.js';
-import { Retenciones10 } from './extractors/retenciones10.js';
-import { UnmatchedDocumentException } from './exceptions/unmatched-document-exception.js';
+import { Comprobante33 } from './extractors/comprobante33.js';
 import { Comprobante40 } from './extractors/comprobante40.js';
+import { Retenciones10 } from './extractors/retenciones10.js';
 import { Retenciones20 } from './extractors/retenciones20.js';
+import { type ExpressionExtractorInterface } from './types.js';
 
 export class DiscoverExtractor implements ExpressionExtractorInterface {
   private readonly _expressions: ExpressionExtractorInterface[];
 
-  constructor(...expressions: ExpressionExtractorInterface[]) {
-    if (expressions.length === 0) {
-      expressions = this.defaultExtractors();
-    }
-
-    this._expressions = expressions;
+  public constructor(...expressions: ExpressionExtractorInterface[]) {
+    this._expressions = expressions.length > 0 ? expressions : this.defaultExtractors();
   }
 
   public defaultExtractors(): ExpressionExtractorInterface[] {
-    return [new Comprobante40(), new Comprobante33(), new Comprobante32(), new Retenciones20(), new Retenciones10()];
+    return [
+      new Comprobante40(),
+      new Comprobante33(),
+      new Comprobante32(),
+      new Retenciones20(),
+      new Retenciones10(),
+    ];
   }
 
   public currentExpressionExtractors(): ExpressionExtractorInterface[] {
@@ -48,7 +50,9 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
   public format(values: Record<string, string>, type = ''): string {
     const extractor = this.findByUniqueName(type);
     if (extractor === null) {
-      throw new UnmatchedDocumentException('DiscoverExtractor requires type key with an extractor identifier');
+      throw new UnmatchedDocumentError(
+        'DiscoverExtractor requires type key with an extractor identifier',
+      );
     }
 
     delete values.type;
@@ -79,7 +83,9 @@ export class DiscoverExtractor implements ExpressionExtractorInterface {
   protected getFirstMatch(document: Document): ExpressionExtractorInterface {
     const discovered = this.findMatch(document);
     if (!discovered) {
-      throw new UnmatchedDocumentException('Cannot discover any DiscoverExtractor that matches with document');
+      throw new UnmatchedDocumentError(
+        'Cannot discover any DiscoverExtractor that matches with document',
+      );
     }
 
     return discovered;

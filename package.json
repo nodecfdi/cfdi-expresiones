@@ -3,23 +3,56 @@
   "version": "2.1.7",
   "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
   "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/commonjs/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
-    }
+      "import": {
+        "source": "./src/index.ts",
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "source": "./src/index.ts",
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "source": "./src/types.ts",
+        "types": "./dist/esm/types.d.ts",
+        "default": "./dist/esm/types.js"
+      },
+      "require": {
+        "source": "./src/types.ts",
+        "types": "./dist/commonjs/types.d.ts",
+        "default": "./dist/commonjs/types.js"
+      }
+    },
+    "./errors": {
+      "import": {
+        "source": "./src/errors.ts",
+        "types": "./dist/esm/errors.d.ts",
+        "default": "./dist/esm/errors.js"
+      },
+      "require": {
+        "source": "./src/errors.ts",
+        "types": "./dist/commonjs/errors.d.ts",
+        "default": "./dist/commonjs/errors.js"
+      }
+    },
+    "./package.json": "./package.json"
   },
   "imports": {
     "#src/*": "./src/*.js",
     "#tests/*": "./tests/*.js"
   },
   "scripts": {
-    "clean": "del-cli dist",
     "prepare": "is-in-ci || husky",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --fix",
@@ -29,9 +62,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "prebuild": "pnpm clean",
-    "build": "tsup",
-    "gen:docs": "del-cli docs && typedoc --options typedoc.json",
+    "build": "tshy",
+    "gen:docs": "typedoc --options typedoc.json",
     "version": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s",
     "postversion": "pnpm format && git add CHANGELOG.md",
     "release": "pnpm run build && pnpm changeset publish"
@@ -45,22 +77,23 @@
     "@nodecfdi/eslint-config": "^1.7.1",
     "@nodecfdi/prettier-config": "^1.1.1",
     "@nodecfdi/tsconfig": "^1.5.0",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@vitest/coverage-istanbul": "^1.6.0",
     "conventional-changelog-cli": "^5.0.0",
-    "del-cli": "^5.1.0",
     "eslint": "^8.57.0",
     "eslint-define-config": "^2.1.0",
     "husky": "^9.0.11",
     "is-in-ci": "^0.1.0",
     "prettier": "^3.3.2",
-    "tsup": "^8.1.0",
+    "tshy": "^1.17.0",
     "typedoc": "^0.26.3",
     "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   },
-  "peerDependencies": {
-    "@nodecfdi/cfdi-core": "^0.1.1"
+  "dependencies": {
+    "entities": "^5.0.0",
+    "tofixed-round-fix": "^1.0.1",
+    "ts-mixer": "^6.0.4"
   },
   "author": "Fernando Isidro <luffynando@gmail.com>",
   "license": "MIT",
@@ -90,5 +123,14 @@
     "not IE 11"
   ],
   "prettier": "@nodecfdi/prettier-config",
-  "packageManager": "pnpm@9.4.0"
+  "packageManager": "pnpm@9.4.0",
+  "tshy": {
+    "selfLink": false,
+    "exports": {
+      ".": "./src/index.ts",
+      "./types": "./src/types.ts",
+      "./errors": "./src/errors.ts",
+      "./package.json": "./package.json"
+    }
+  }
 }

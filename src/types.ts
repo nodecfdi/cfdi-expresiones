@@ -1,4 +1,4 @@
-export type ExpressionExtractorInterface = {
+export interface ExpressionExtractorInterface {
   /**
    * Extractor (implementor) unique name
    */
@@ -31,4 +31,4 @@ export type ExpressionExtractorInterface = {
    * @param values - Parameters for generate expression
    */
   format(values: Record<string, string>): string;
-};
+}

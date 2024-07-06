@@ -1,10 +1,9 @@
-import { AttributeNotFoundException } from '../exceptions/attribute-not-found-exception.js';
-import { ElementNotFoundException } from '../exceptions/element-not-found-exception.js';
+import { AttributeNotFoundError, ElementNotFoundError } from '../errors.js';
 
 export class DomHelper {
   private readonly _document?: Document;
 
-  constructor(document: Document) {
+  public constructor(document: Document) {
     this._document = document;
   }
 
@@ -20,7 +19,7 @@ export class DomHelper {
     const value = this.findAttribute(...path);
     if (value === null) {
       const attribute = path.pop();
-      throw new AttributeNotFoundException(`Attribute ${path.join('/')}@${attribute} not found`);
+      throw new AttributeNotFoundError(`Attribute ${path.join('/')}@${attribute} not found`);
     }
 
     return value;
@@ -43,7 +42,7 @@ export class DomHelper {
   public getElement(...path: string[]): Element {
     const element = this.findElement(...path);
     if (!element) {
-      throw new ElementNotFoundException(`Element ${path.join('/')} not found`);
+      throw new ElementNotFoundError(`Element ${path.join('/')} not found`);
     }
 
     return element;

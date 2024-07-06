@@ -1,14 +1,16 @@
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { Retenciones20 } from 'src/extractors/retenciones20';
-import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
-import { AttributeNotFoundException } from 'src/exceptions/attribute-not-found-exception';
-import { useDomDocuments } from '../dom-documents-test-case.js';
+import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
+import { Retenciones20 } from '#src/extractors/retenciones20';
+import {
+  documentLoad,
+  documentRet10Foreign,
+  documentRet10Mexican,
+  documentRet20Foreign,
+  documentRet20Mexican,
+} from '../dom_documents_utils.js';
 
-describe('Extractors/Retenciones20', () => {
+describe('extractors Retenciones20', () => {
   let extractor: Retenciones20;
   let document: Document;
-  const { documentLoad, documentRet10Mexican, documentRet10Foreign, documentRet20Foreign, documentRet20Mexican } =
-    useDomDocuments(new DOMParser(), new XMLSerializer(), new DOMImplementation());
 
   beforeEach(() => {
     extractor = new Retenciones20();
@@ -51,22 +53,22 @@ describe('Extractors/Retenciones20', () => {
   test.each([
     ['RET10Mexican', documentRet10Mexican()],
     ['RET10Foreign', documentRet10Foreign()],
-  ])('not matches retenciones %s', (_name: string, document: Document) => {
-    expect(extractor.matches(document)).toBeFalsy();
+  ])('not matches retenciones %s', (_name: string, doc: Document) => {
+    expect(extractor.matches(doc)).toBeFalsy();
   });
 
   test.each([
     ['RET10Mexican', documentRet10Mexican()],
     ['RET10Foreign', documentRet10Foreign()],
-  ])('extract not matches throws exception %s', (_name: string, document: Document) => {
-    expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-    expect(() => extractor.extract(document)).toThrow('The document is not a RET 2.0');
+  ])('extract not matches throws exception %s', (_name: string, doc: Document) => {
+    expect(() => extractor.extract(doc)).toThrow(UnmatchedDocumentError);
+    expect(() => extractor.extract(doc)).toThrow('The document is not a RET 2.0');
   });
 
   test('extract without receptor throws exception', () => {
     document = documentLoad('ret20-without-receptor-tax-id.xml');
 
-    expect(() => extractor.extract(document)).toThrow(AttributeNotFoundException);
+    expect(() => extractor.extract(document)).toThrow(AttributeNotFoundError);
     expect(() => extractor.extract(document)).toThrow('RET 2.0 receiver tax id cannot be found');
   });
 

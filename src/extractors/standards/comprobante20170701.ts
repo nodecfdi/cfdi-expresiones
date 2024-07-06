@@ -1,17 +1,18 @@
 import { Mixin } from 'ts-mixer';
-import { UnmatchedDocumentException } from '../../exceptions/unmatched-document-exception.js';
-import { type ExpressionExtractorInterface } from '../../expression-extractor-interface.js';
-import { DomHelper } from '../../internal/dom-helper.js';
-import { type MatchDetector } from '../../internal/match-detector.js';
-import { FormatRfcXml } from './format-rfc-xml.js';
-import { FormatSelloLast8 } from './format-sello-last8.js';
-import { FormatTotal18x6 } from './format-total18x6.js';
+import { UnmatchedDocumentError } from '../../errors.js';
+import { DomHelper } from '../../internal/dom_helper.js';
+import { type MatchDetector } from '../../internal/match_detector.js';
+import { type ExpressionExtractorInterface } from '../../types.js';
+import { cfdiNodeName } from '../../utils/constants.js';
+import { FormatRfcXml } from './format_rfc_xml.js';
+import { FormatSelloLast8 } from './format_sello_last8.js';
+import { FormatTotal18x6 } from './format_total18x6.js';
 
 /**
  * Especificación técnica del código de barras bidimensional a incorporar en la representación impresa.
  * Esta versión se utiliza desde CFDI 3.3 vigente a partir de 2017-07-01.
  */
-abstract class Comprobante20170701
+export abstract class Comprobante20170701
   extends Mixin(FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
   implements ExpressionExtractorInterface
 {
@@ -19,7 +20,7 @@ abstract class Comprobante20170701
 
   private readonly _unmatchedExceptionMessage: string;
 
-  constructor(matchDetector: MatchDetector, unmatchedExceptionMessage: string) {
+  public constructor(matchDetector: MatchDetector, unmatchedExceptionMessage: string) {
     super();
     this._matchDetector = matchDetector;
     this._unmatchedExceptionMessage = unmatchedExceptionMessage;
@@ -31,15 +32,20 @@ abstract class Comprobante20170701
 
   public obtain(document: Document): Record<string, string> {
     if (!this.matches(document)) {
-      throw new UnmatchedDocumentException(this._unmatchedExceptionMessage);
+      throw new UnmatchedDocumentError(this._unmatchedExceptionMessage);
     }
 
     const helper = new DomHelper(document);
-    const uuid = helper.getAttribute('cfdi:Comprobante', 'cfdi:Complemento', 'tfd:TimbreFiscalDigital', 'UUID');
-    const rfcEmisor = helper.getAttribute('cfdi:Comprobante', 'cfdi:Emisor', 'Rfc');
-    const rfcReceptor = helper.getAttribute('cfdi:Comprobante', 'cfdi:Receptor', 'Rfc');
-    const total = helper.getAttribute('cfdi:Comprobante', 'Total');
-    const sello = helper.getAttribute('cfdi:Comprobante', 'Sello');
+    const uuid = helper.getAttribute(
+      cfdiNodeName,
+      'cfdi:Complemento',
+      'tfd:TimbreFiscalDigital',
+      'UUID',
+    );
+    const rfcEmisor = helper.getAttribute(cfdiNodeName, 'cfdi:Emisor', 'Rfc');
+    const rfcReceptor = helper.getAttribute(cfdiNodeName, 'cfdi:Receptor', 'Rfc');
+    const total = helper.getAttribute(cfdiNodeName, 'Total');
+    const sello = helper.getAttribute(cfdiNodeName, 'Sello');
 
     return {
       id: uuid,
@@ -66,5 +72,3 @@ abstract class Comprobante20170701
 
   public abstract uniqueName(): string;
 }
-
-export { Comprobante20170701 };

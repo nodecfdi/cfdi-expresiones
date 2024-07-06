@@ -1,6 +1,6 @@
-import { FormatForeignTaxId20 } from 'src/extractors/standards/format-foreign-tax-id20';
+import { FormatForeignTaxId20 } from '#src/extractors/standards/format_foreign_tax_id20';
 
-describe('FormatForeignTaxId20', () => {
+describe('class FormatForeignTaxId20', () => {
   test.each([
     ['X', '0000000000000000000X'],
     ['12345678901234567890', '12345678901234567890'],

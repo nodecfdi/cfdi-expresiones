@@ -1,16 +1,10 @@
-import { DOMParser, XMLSerializer, DOMImplementation } from '@xmldom/xmldom';
-import { Comprobante33 } from 'src/extractors/comprobante33';
-import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
-import { useDomDocuments } from '../dom-documents-test-case.js';
+import { UnmatchedDocumentError } from '#src/errors';
+import { Comprobante33 } from '#src/extractors/comprobante33';
+import { documentCfdi32, documentCfdi33, documentCfdi40 } from '../dom_documents_utils.js';
 
-describe('Extractors/Comprobante33', () => {
+describe('extractors Comprobante33', () => {
   let extractor: Comprobante33;
   let document: Document;
-  const { documentCfdi32, documentCfdi33, documentCfdi40 } = useDomDocuments(
-    new DOMParser(),
-    new XMLSerializer(),
-    new DOMImplementation(),
-  );
 
   beforeEach(() => {
     extractor = new Comprobante33();
@@ -37,16 +31,16 @@ describe('Extractors/Comprobante33', () => {
   test.each([
     ['cfdi40', documentCfdi40()],
     ['cfdi32', documentCfdi32()],
-  ])('not matches cfdi with %s', (_name: string, document: Document) => {
-    expect(extractor.matches(document)).toBeFalsy();
+  ])('not matches cfdi with %s', (_name: string, doc: Document) => {
+    expect(extractor.matches(doc)).toBeFalsy();
   });
 
   test.each([
     ['cfdi40', documentCfdi40()],
     ['cfdi32', documentCfdi32()],
-  ])('extract not matches throw exception with %', (_name: string, document: Document) => {
-    expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
-    expect(() => extractor.extract(document)).toThrow('The document is not a CFDI 3.3');
+  ])('extract not matches throw exception with %', (_name: string, doc: Document) => {
+    expect(() => extractor.extract(doc)).toThrow(UnmatchedDocumentError);
+    expect(() => extractor.extract(doc)).toThrow('The document is not a CFDI 3.3');
   });
 
   test('format uses formatting', () => {

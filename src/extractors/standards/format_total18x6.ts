@@ -1,4 +1,5 @@
-import { rtrim, toFixed } from '../../utils/index.js';
+import rtrim from '../../utils/rtrim.js';
+import toFixed from '../../utils/to_fixed.js';
 
 export class FormatTotal18x6 {
   public formatTotal(input: string): string {

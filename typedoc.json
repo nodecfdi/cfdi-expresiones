@@ -1,6 +1,6 @@
 {
   "plugin": ["@jsprismarine/typedoc-material-theme"],
   "themeColor": "#badc69",
-  "entryPoints": ["./index.ts"],
+  "entryPoints": ["./src/index.ts", "./src/types.ts", "./src/errors.ts"],
   "out": "./docs"
 }

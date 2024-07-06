@@ -1,4 +1,4 @@
-import { toFixed } from '../../utils/index.js';
+import toFixed from '../../utils/to_fixed.js';
 
 export class FormatTotal10x6 {
   public formatTotal(input: string): string {

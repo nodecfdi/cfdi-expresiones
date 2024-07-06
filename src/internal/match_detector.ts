@@ -1,7 +1,7 @@
-import { UnmatchedDocumentException } from '../exceptions/unmatched-document-exception.js';
+import { UnmatchedDocumentError } from '../errors.js';
 
 export class MatchDetector {
-  constructor(
+  public constructor(
     public namespaceUri: string,
     public elementName: string,
     public versionName: string,
@@ -11,19 +11,19 @@ export class MatchDetector {
   public check(document?: Document): void {
     const documentElement = document?.documentElement;
     if (!documentElement) {
-      throw new UnmatchedDocumentException('Document does not have root element');
+      throw new UnmatchedDocumentError('Document does not have root element');
     }
 
     if (documentElement.namespaceURI !== this.namespaceUri) {
-      throw new UnmatchedDocumentException('Document root element namespace does not match');
+      throw new UnmatchedDocumentError('Document root element namespace does not match');
     }
 
     if (documentElement.nodeName !== this.elementName) {
-      throw new UnmatchedDocumentException('Document root element name does not match');
+      throw new UnmatchedDocumentError('Document root element name does not match');
     }
 
     if (documentElement.getAttribute(this.versionName) !== this.versionValue) {
-      throw new UnmatchedDocumentException('Document root element version attribute does not match');
+      throw new UnmatchedDocumentError('Document root element version attribute does not match');
     }
   }
 

@@ -1,27 +1,25 @@
-import { Xml, install } from '@nodecfdi/cfdiutils-common';
-import { XMLSerializer, DOMImplementation, DOMParser } from '@xmldom/xmldom';
-import { Comprobante40 } from 'src/extractors/comprobante40';
-import { Comprobante32 } from 'src/extractors/comprobante32';
-import { Comprobante33 } from 'src/extractors/comprobante33';
-import { Retenciones10 } from 'src/extractors/retenciones10';
-import { Retenciones20 } from 'src/extractors/retenciones20';
-import { DiscoverExtractor } from 'src/discover-extractor';
-import { UnmatchedDocumentException } from 'src/exceptions/unmatched-document-exception';
-import { useDomDocuments } from './dom-documents-test-case.js';
+import { newDocument } from '@nodecfdi/cfdi-core';
+import { DiscoverExtractor } from '#src/discover_extractor';
+import { UnmatchedDocumentError } from '#src/errors';
+import { Comprobante32 } from '#src/extractors/comprobante32';
+import { Comprobante33 } from '#src/extractors/comprobante33';
+import { Comprobante40 } from '#src/extractors/comprobante40';
+import { Retenciones10 } from '#src/extractors/retenciones10';
+import { Retenciones20 } from '#src/extractors/retenciones20';
+import {
+  documentCfdi32,
+  documentCfdi33,
+  documentCfdi40,
+  documentRet10Foreign,
+  documentRet10Mexican,
+  documentRet20Foreign,
+  documentRet20Mexican,
+} from './dom_documents_utils.js';
 
-describe('DiscoverExtractor', () => {
+describe('discover extractor', () => {
   let extractor: DiscoverExtractor;
-  const {
-    documentCfdi32,
-    documentCfdi33,
-    documentCfdi40,
-    documentRet10Foreign,
-    documentRet10Mexican,
-    documentRet20Foreign,
-    documentRet20Mexican,
-  } = useDomDocuments(new DOMParser(), new XMLSerializer(), new DOMImplementation());
 
-  const providerExpressionOnValidDocuments: Array<[string, Document, string]> = [
+  const providerExpressionOnValidDocuments: [string, Document, string][] = [
     ['cfdi40', documentCfdi40(), 'CFDI40'],
     ['cfdi33', documentCfdi33(), 'CFDI33'],
     ['cfdi32', documentCfdi32(), 'CFDI32'],
@@ -32,7 +30,6 @@ describe('DiscoverExtractor', () => {
   ];
 
   beforeEach(() => {
-    install(new DOMParser(), new XMLSerializer(), new DOMImplementation());
     extractor = new DiscoverExtractor();
   });
 
@@ -54,20 +51,28 @@ describe('DiscoverExtractor', () => {
   });
 
   test('generic extractor use specific extractors', () => {
-    extractor = new DiscoverExtractor(new Comprobante40(), new Comprobante33(), new Comprobante32());
+    extractor = new DiscoverExtractor(
+      new Comprobante40(),
+      new Comprobante33(),
+      new Comprobante32(),
+    );
     const currentExpressionExtractors = extractor.currentExpressionExtractors();
     expect(currentExpressionExtractors).toHaveLength(3);
-    expect(currentExpressionExtractors).toStrictEqual([new Comprobante40(), new Comprobante33(), new Comprobante32()]);
+    expect(currentExpressionExtractors).toStrictEqual([
+      new Comprobante40(),
+      new Comprobante33(),
+      new Comprobante32(),
+    ]);
   });
 
   test('dont match using empty document', () => {
-    const document = Xml.newDocument();
+    const document = newDocument();
     expect(extractor.matches(document)).toBeFalsy();
   });
 
   test('throw exception on unmatched document', () => {
-    const document = Xml.newDocument();
-    expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentException);
+    const document = newDocument();
+    expect(() => extractor.extract(document)).toThrow(UnmatchedDocumentError);
     expect(() => extractor.extract(document)).toThrow(
       'Cannot discover any DiscoverExtractor that matches with document',
     );
@@ -92,8 +97,10 @@ describe('DiscoverExtractor', () => {
   );
 
   test('format using no type', () => {
-    expect(() => extractor.format({})).toThrow(UnmatchedDocumentException);
-    expect(() => extractor.format({})).toThrow('DiscoverExtractor requires type key with an extractor identifier');
+    expect(() => extractor.format({})).toThrow(UnmatchedDocumentError);
+    expect(() => extractor.format({})).toThrow(
+      'DiscoverExtractor requires type key with an extractor identifier',
+    );
   });
 
   test('format using cfdi33', () => {

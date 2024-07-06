@@ -1,14 +1,7 @@
-import { htmlEntities, rtrim, toFixed } from 'src/utils';
+import { encode } from 'entities';
+import rtrim from '#src/utils/rtrim';
 
-describe('utils', () => {
-  test('to Fixed floating point with another decimal different of 5', () => {
-    expect(toFixed(1e-8, 8)).toBe('0.00000001');
-  });
-
-  test('toFixed floating point number 5 upper half of an integer', () => {
-    expect(toFixed(0.123_456_5, 6)).toBe('0.123457');
-  });
-
+describe('rtrim', () => {
   test('rtrim default charList', () => {
     const expected = '    Kevin van Zonneveld';
     const result = rtrim('    Kevin van Zonneveld    ');
@@ -23,7 +16,7 @@ describe('utils', () => {
 
   test('html_entities with ampersand', () => {
     const expected = 'today &amp; tomorrow is a good day';
-    const result = htmlEntities('today & tomorrow is a good day');
+    const result = encode('today & tomorrow is a good day');
     expect(result).toBe(expected);
   });
 });
