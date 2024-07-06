@@ -62,14 +62,15 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "build": "tshy",
     "gen:docs": "typedoc --options typedoc.json",
-    "version": "conventional-changelog -p conventionalcommits -i CHANGELOG.md -s",
-    "postversion": "pnpm format && git add CHANGELOG.md",
-    "release": "pnpm run build && pnpm changeset publish"
+    "prebuild": "pnpm lint:check",
+    "build": "tshy",
+    "postbuild": "pnpm run gen:docs",
+    "release": "np",
+    "version": "pnpm run build && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.7",
     "@commitlint/cli": "^18.6.1",
     "@commitlint/config-conventional": "^18.6.3",
     "@jsprismarine/typedoc-material-theme": "^1.0.4",
@@ -80,6 +81,7 @@
     "@types/node": "^20.14.10",
     "@vitest/coverage-istanbul": "^1.6.0",
     "conventional-changelog-cli": "^5.0.0",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
     "eslint": "^8.57.0",
     "eslint-define-config": "^2.1.0",
     "husky": "^9.0.11",
@@ -124,6 +126,17 @@
   ],
   "prettier": "@nodecfdi/prettier-config",
   "packageManager": "pnpm@9.4.0",
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "np": {
+    "message": "chore(release): :tada: %s",
+    "tag": "latest",
+    "branch": "main",
+    "anyBranch": false,
+    "testScript": "test:run"
+  },
   "tshy": {
     "selfLink": false,
     "exports": {
