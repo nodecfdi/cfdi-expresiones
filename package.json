@@ -65,7 +65,7 @@
     "gen:docs": "typedoc --options typedoc.json",
     "prebuild": "pnpm lint:check",
     "build": "tshy",
-    "postbuild": "pnpm run gen:docs",
+    "postbuild": "pnpm run gen:docs && git add docs",
     "release": "np",
     "version": "pnpm run build && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
     "prepublishOnly": "pnpm run build"
