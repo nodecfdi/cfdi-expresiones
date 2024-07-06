@@ -18,7 +18,11 @@
 
 :mexico: La documentación del proyecto está en español porque ese es el lenguaje principal de los usuarios.
 
-Esta librería contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20. Librería inspirada por la versión para php <https://github.com/phpcfdi/cfdi-expresiones>
+## Acerca de `@nodecfdi/cfdi-expresiones`
+
+Esta librería contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.
+
+Librería inspirada por la versión para php <https://github.com/phpcfdi/cfdi-expresiones>
 
 Estas expresiones se utilizan principalmente para dos motivos:
 
@@ -49,59 +53,9 @@ Ejemplo de expresión para RET 2.0:
 https://prodretencionverificacion.clouda.sat.gob.mx/?id=ad662d33-6934-459c-a128-BDf0393f0f44&re=XAXX010101000&nr=12345678901234567890&tt=1234567890.12&fe=/OAgdg==
 ```
 
-## Instalación
+## Documentación
 
-NPM
-
-```bash
-npm i @nodecfdi/cfdi-expresiones --save
-```
-
-YARN
-
-```bash
-yarn add @nodecfdi/cfdi-expresiones
-```
-
-PNPM
-
-```bash
-pnpm add @nodecfdi/cfdi-expresiones
-```
-
-CDN - Browser
-
-Usa la versión mas reciente publicada cambiando `<latest-version>` por la última version. Ex. ...cfdi-expresiones@2.1.6/dist...
-
-```html
-<script src="https://unpkg.com/@nodecfdi/cfdi-expresiones@<latest-version>/dist/cfdi-expresiones.global.js"></script>
-```
-
-## Ejemplo básico de uso
-
-Dado que en node como tal no se tiene acceso al api del navegador, más bien es un ambiente de servidor, no tenemos
-acceso a Document, por lo que para poder pasar el document a la lib usaremos la lib xmldom, que nos permitirá crear
-nuestro documento y pasárselo a esta lib.
-
-```ts
-import { readFileSync } from 'fs';
-import { DiscoverExtractor } from '@nodecfdi/cfdi-expresiones';
-import { DOMParser } from '@xmldom/xmldom';
-// creamos el extractor
-const extractor = new DiscoverExtractor();
-// Accedemos al contenido en nuestro archivo XML
-const content = readFileSync('archivo-cfdi.xml').toString();
-// generamos el documento con ayuda de DOMParser
-const document = new DOMParser().parseFromString(content, 'text/xml');
-// obtenemos la expresión
-const expression = extractor.extract(document);
-// y también podemos obtener los valores inviduales
-const values = extractor.obtain(document);
-```
-
-Nota: Actualmente la librería requiere que le pases un objeto de tipo Document, existen muchas libs en node que te dan
-el objeto que implementa esa interfaz, en esta lib usamos para pruebas la
-librería [xmldom](https://www.npmjs.com/package/@xmldom/xmldom). Y se recomienda usar dicha lib para evitar cualquier error. Para browser se recomienda usar los nativos del Api Web.
+La documentación está disponible en el sitio web [NodeCfdi](https://nodecfdi.com/librarys/cfdi-expresiones/getting-started/)
 
 ## Soporte
 
@@ -124,7 +78,7 @@ Las contribuciones con bienvenidas. Por favor lee [CONTRIBUTING][] para más det
 
 The `@nodecfdi/cfdi-expresiones` library is copyright © [NodeCfdi](https://github.com/nodecfdi) - [OcelotlStudio](https://ocelotlstudio.com) and licensed for use under the MIT License (MIT). Please see [LICENSE][] for more information.
 
-[contributing]: https://github.com/nodecfdi/cfdi-expresiones/blob/main/CONTRIBUTING.md
+[contributing]: https://github.com/nodecfdi/.github/blob/main/docs/CONTRIBUTING.md
 [changelog]: https://github.com/nodecfdi/cfdi-expresiones/blob/main/CHANGELOG.md
 [source]: https://github.com/nodecfdi/cfdi-expresiones
 [node-version]: https://www.npmjs.com/package/@nodecfdi/cfdi-expresiones
