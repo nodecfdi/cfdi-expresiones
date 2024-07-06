@@ -1,3 +1,4 @@
+## [3.0.0](https://github.com/nodecfdi/cfdi-expresiones/compare/v2.1.6...v3.0.0) (2024-07-06)
 ## <small>2.1.7 (2024-07-06)</small>
 
 * ci: :green_heart: update github ci workflow with latest changes on organization ([d45dda1](https://github.com/nodecfdi/cfdi-expresiones/commit/d45dda1))
