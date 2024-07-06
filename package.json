@@ -1,100 +1,149 @@
 {
-    "name": "@nodecfdi/cfdi-expresiones",
-    "version": "2.1.6",
-    "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
-    "keywords": [
-        "CFDI 4.0",
-        "CFDI 3.2",
-        "CFDI 3.3",
-        "RET 1.0",
-        "RET 2.0",
-        "Expresion",
-        "SAT",
-        "Codigo QR"
-    ],
-    "private": false,
-    "author": "OcelotlStudio <contacto@ocelotlstudio.com>",
-    "license": "MIT",
-    "type": "module",
-    "main": "./dist/cfdi-expresiones.cjs",
-    "module": "./dist/cfdi-expresiones.js",
-    "unpkg": "./dist/cfdi-expresiones.global.js",
-    "browser": "./dist/cfdi-expresiones.global.js",
-    "types": "./dist/index.d.ts",
+  "name": "@nodecfdi/cfdi-expresiones",
+  "version": "2.1.7",
+  "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
+  "type": "module",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/commonjs/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "source": "./src/index.ts",
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "source": "./src/index.ts",
+        "types": "./dist/commonjs/index.d.ts",
+        "default": "./dist/commonjs/index.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "source": "./src/types.ts",
+        "types": "./dist/esm/types.d.ts",
+        "default": "./dist/esm/types.js"
+      },
+      "require": {
+        "source": "./src/types.ts",
+        "types": "./dist/commonjs/types.d.ts",
+        "default": "./dist/commonjs/types.js"
+      }
+    },
+    "./errors": {
+      "import": {
+        "source": "./src/errors.ts",
+        "types": "./dist/esm/errors.d.ts",
+        "default": "./dist/esm/errors.js"
+      },
+      "require": {
+        "source": "./src/errors.ts",
+        "types": "./dist/commonjs/errors.d.ts",
+        "default": "./dist/commonjs/errors.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "imports": {
+    "#src/*": "./src/*.js",
+    "#tests/*": "./tests/*.js"
+  },
+  "scripts": {
+    "prepare": "is-in-ci || husky",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "gen:docs": "typedoc --options typedoc.json",
+    "prebuild": "pnpm lint:check",
+    "build": "tshy",
+    "postbuild": "pnpm run gen:docs",
+    "release": "np",
+    "version": "pnpm run build && conventional-changelog -p conventionalcommits -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.6.1",
+    "@commitlint/config-conventional": "^18.6.3",
+    "@jsprismarine/typedoc-material-theme": "^1.0.4",
+    "@nodecfdi/cfdi-core": "^0.1.1",
+    "@nodecfdi/eslint-config": "^1.7.1",
+    "@nodecfdi/prettier-config": "^1.1.1",
+    "@nodecfdi/tsconfig": "^1.5.0",
+    "@types/node": "^20.14.10",
+    "@vitest/coverage-istanbul": "^1.6.0",
+    "conventional-changelog-cli": "^5.0.0",
+    "conventional-changelog-conventionalcommits": "^8.0.0",
+    "eslint": "^8.57.0",
+    "eslint-define-config": "^2.1.0",
+    "husky": "^9.0.11",
+    "is-in-ci": "^0.1.0",
+    "prettier": "^3.3.2",
+    "tshy": "^1.17.0",
+    "typedoc": "^0.26.3",
+    "typescript": "^5.5.3",
+    "vitest": "^1.6.0"
+  },
+  "dependencies": {
+    "entities": "^5.0.0",
+    "tofixed-round-fix": "^1.0.1",
+    "ts-mixer": "^6.0.4"
+  },
+  "author": "Fernando Isidro <luffynando@gmail.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/nodecfdi/cfdi-expresiones",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodecfdi/cfdi-expresiones.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nodecfdi/cfdi-expresiones/issues"
+  },
+  "keywords": [
+    "CFDI 4.0",
+    "CFDI 3.2",
+    "CFDI 3.3",
+    "RET 1.0",
+    "RET 2.0",
+    "Expresion",
+    "SAT",
+    "Codigo QR"
+  ],
+  "engines": {
+    "node": ">=18 <=22 || ^16"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11"
+  ],
+  "prettier": "@nodecfdi/prettier-config",
+  "packageManager": "pnpm@9.4.0",
+  "publishConfig": {
+    "access": "public",
+    "tag": "latest"
+  },
+  "np": {
+    "message": "chore(release): :tada: %s",
+    "tag": "latest",
+    "branch": "main",
+    "anyBranch": false,
+    "testScript": "test:run"
+  },
+  "tshy": {
+    "selfLink": false,
     "exports": {
-        ".": {
-            "import": {
-                "types": "./dist/index.d.ts",
-                "default": "./dist/cfdi-expresiones.js"
-            },
-            "require": {
-                "types": "./dist/index.d.cts",
-                "default": "./dist/cfdi-expresiones.cjs"
-            }
-        }
-    },
-    "files": [
-        "dist"
-    ],
-    "scripts": {
-        "prepare": "is-ci || husky install",
-        "lint": "eslint . --fix --ext .ts,.js",
-        "lint:check": "eslint . --ext .ts,.js",
-        "test": "vitest",
-        "test:run": "vitest run",
-        "test:coverage": "vitest run --coverage",
-        "build": "rimraf dist && tsup",
-        "gen:docs": "rimraf docs && typedoc --options typedoc.json",
-        "release": "pnpm run build && pnpm changeset publish"
-    },
-    "repository": "https://github.com/nodecfdi/cfdi-expresiones",
-    "bugs": {
-        "url": "https://github.com/nodecfdi/cfdi-expresiones/issues"
-    },
-    "homepage": "https://github.com/nodecfdi/cfdi-expresiones",
-    "devDependencies": {
-        "@changesets/cli": "^2.26.2",
-        "@commitlint/cli": "^17.6.6",
-        "@nodecfdi/eslint-config-nodecfdi": "^0.1.5",
-        "@nodecfdi/cfdiutils-common": "^1.2.5",
-        "@nrsk/config-conventional": "^1.0.0",
-        "@types/is-ci": "^3.0.0",
-        "@types/node": "^20.4.2",
-        "@vitest/coverage-istanbul": "^0.34.0",
-        "@xmldom/xmldom": "^0.8.9",
-        "eslint": "^8.45.0",
-        "husky": "^8.0.3",
-        "is-ci": "^3.0.1",
-        "jsdom": "^22.1.0",
-        "lint-staged": "^13.2.3",
-        "prettier": "^3.0.0",
-        "rimraf": "^5.0.1",
-        "ts-mixer": "^6.0.3",
-        "tsup": "^7.1.0",
-        "typedoc": "^0.25.0",
-        "typedoc-theme-hierarchy": "^4.0.0",
-        "typescript": "^5.1.6",
-        "vite": "^4.4.4",
-        "vitest": "^0.34.0"
-    },
-    "commitlint": {
-        "extends": [
-            "@nrsk/config-conventional"
-        ]
-    },
-    "lint-staged": {
-        "*.{json}": [
-            "prettier --write"
-        ],
-        "*.{js,ts}": [
-            "eslint --fix"
-        ]
-    },
-    "engines": {
-        "node": ">= 16"
-    },
-    "browserslist": [
-        "defaults",
-        "not IE 11"
-    ]
+      ".": "./src/index.ts",
+      "./types": "./src/types.ts",
+      "./errors": "./src/errors.ts",
+      "./package.json": "./package.json"
+    }
+  }
 }
