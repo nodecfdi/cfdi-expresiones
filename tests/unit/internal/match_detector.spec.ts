@@ -1,7 +1,7 @@
 import { newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
 import { UnmatchedDocumentError } from '#src/errors';
-import { MatchDetector } from '#src/internal/match_detector';
-import { fileContentPath } from '#tests/test_utils';
+import MatchDetector from '#src/internal/match_detector';
+import { fileContentPath } from '../../test_utils.js';
 
 describe('match detector', () => {
   let detector: MatchDetector;

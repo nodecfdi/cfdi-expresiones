@@ -1,4 +1,4 @@
-import { FormatForeignTaxId20 } from '#src/extractors/standards/format_foreign_tax_id20';
+import FormatForeignTaxId20 from '#src/extractors/standards/format_foreign_tax_id20';
 
 describe('class FormatForeignTaxId20', () => {
   test.each([

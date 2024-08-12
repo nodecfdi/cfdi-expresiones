@@ -1,5 +1,5 @@
 import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
-import { Retenciones10 } from '#src/extractors/retenciones10';
+import Retenciones10 from '#src/extractors/retenciones10';
 import {
   documentLoad,
   documentRet10Foreign,

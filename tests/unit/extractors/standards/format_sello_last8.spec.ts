@@ -1,4 +1,4 @@
-import { FormatSelloLast8 } from '#src/extractors/standards/format_sello_last8';
+import FormatSelloLast8 from '#src/extractors/standards/format_sello_last8';
 
 describe('class FormatSelloLast8', () => {
   test.each([

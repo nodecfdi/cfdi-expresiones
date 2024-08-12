@@ -1,4 +1,4 @@
-import { FormatTotal10x6 } from '#src/extractors/standards/format_total10x6';
+import FormatTotal10x6 from '#src/extractors/standards/format_total10x6';
 
 describe('formatTotal10x6', () => {
   /**

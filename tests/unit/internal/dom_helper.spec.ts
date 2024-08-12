@@ -1,7 +1,7 @@
 import { newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
 import { AttributeNotFoundError, ElementNotFoundError } from '#src/errors';
-import { DomHelper } from '#src/internal/dom_helper';
-import { fileContentPath } from '#tests/test_utils';
+import DomHelper from '#src/internal/dom_helper';
+import { fileContentPath } from '../../test_utils.js';
 
 describe('dom helper', () => {
   let document: Document;

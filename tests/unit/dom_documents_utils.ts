@@ -1,5 +1,5 @@
 import { newDocumentContent } from '@nodecfdi/cfdi-core';
-import { fileContentPath } from '#tests/test_utils';
+import { fileContentPath } from '../test_utils.js';
 
 export const documentCfdi40 = (): Document =>
   newDocumentContent(fileContentPath('cfdi40-real.xml'));

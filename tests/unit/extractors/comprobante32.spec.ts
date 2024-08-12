@@ -1,5 +1,5 @@
 import { UnmatchedDocumentError } from '#src/errors';
-import { Comprobante32 } from '#src/extractors/comprobante32';
+import Comprobante32 from '#src/extractors/comprobante32';
 import { documentCfdi32, documentCfdi33, documentCfdi40 } from '../dom_documents_utils.js';
 
 describe('extractor Comprobante32', () => {

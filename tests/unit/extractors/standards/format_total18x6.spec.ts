@@ -1,4 +1,4 @@
-import { FormatTotal18x6 } from '#src/extractors/standards/format_total18x6';
+import FormatTotal18x6 from '#src/extractors/standards/format_total18x6';
 
 describe('class FormatTotal18x6', () => {
   test.each([

@@ -1,4 +1,4 @@
-import { FormatRfcXml } from '#src/extractors/standards/format_rfc_xml';
+import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
 
 describe('class FormatRfcXml', () => {
   test.each([

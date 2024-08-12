@@ -1,11 +1,11 @@
 import { newDocument } from '@nodecfdi/cfdi-core';
-import { DiscoverExtractor } from '#src/discover_extractor';
+import DiscoverExtractor from '#src/discover_extractor';
 import { UnmatchedDocumentError } from '#src/errors';
-import { Comprobante32 } from '#src/extractors/comprobante32';
-import { Comprobante33 } from '#src/extractors/comprobante33';
-import { Comprobante40 } from '#src/extractors/comprobante40';
-import { Retenciones10 } from '#src/extractors/retenciones10';
-import { Retenciones20 } from '#src/extractors/retenciones20';
+import Comprobante32 from '#src/extractors/comprobante32';
+import Comprobante33 from '#src/extractors/comprobante33';
+import Comprobante40 from '#src/extractors/comprobante40';
+import Retenciones10 from '#src/extractors/retenciones10';
+import Retenciones20 from '#src/extractors/retenciones20';
 import {
   documentCfdi32,
   documentCfdi33,
