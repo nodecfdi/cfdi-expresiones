@@ -1,13 +1,13 @@
 import { Mixin } from 'ts-mixer';
-import { UnmatchedDocumentError } from '../errors.js';
-import { DomHelper } from '../internal/dom_helper.js';
-import { MatchDetector } from '../internal/match_detector.js';
-import { type ExpressionExtractorInterface } from '../types.js';
-import { cfdiNodeName } from '../utils/constants.js';
-import { FormatRfcXml } from './standards/format_rfc_xml.js';
-import { FormatTotal10x6 } from './standards/format_total10x6.js';
+import { UnmatchedDocumentError } from '#src/errors';
+import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
+import FormatTotal10x6 from '#src/extractors/standards/format_total10x6';
+import DomHelper from '#src/internal/dom_helper';
+import MatchDetector from '#src/internal/match_detector';
+import { type ExpressionExtractorInterface } from '#src/types';
+import { cfdiNodeName } from '#src/utils/constants';
 
-export class Comprobante32
+export default class Comprobante32
   extends Mixin(FormatRfcXml, FormatTotal10x6)
   implements ExpressionExtractorInterface
 {

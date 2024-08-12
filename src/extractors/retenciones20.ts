@@ -1,15 +1,15 @@
 import { Mixin } from 'ts-mixer';
-import { AttributeNotFoundError, UnmatchedDocumentError } from '../errors.js';
-import { DomHelper } from '../internal/dom_helper.js';
-import { MatchDetector } from '../internal/match_detector.js';
-import { type ExpressionExtractorInterface } from '../types.js';
-import { retencionesNodeName } from '../utils/constants.js';
-import { FormatForeignTaxId20 } from './standards/format_foreign_tax_id20.js';
-import { FormatRfcXml } from './standards/format_rfc_xml.js';
-import { FormatSelloLast8 } from './standards/format_sello_last8.js';
-import { FormatTotal18x6 } from './standards/format_total18x6.js';
+import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
+import FormatForeignTaxId20 from '#src/extractors/standards/format_foreign_tax_id20';
+import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
+import FormatSelloLast8 from '#src/extractors/standards/format_sello_last8';
+import FormatTotal18x6 from '#src/extractors/standards/format_total18x6';
+import DomHelper from '#src/internal/dom_helper';
+import MatchDetector from '#src/internal/match_detector';
+import { type ExpressionExtractorInterface } from '#src/types';
+import { retencionesNodeName } from '#src/utils/constants';
 
-export class Retenciones20
+export default class Retenciones20
   extends Mixin(FormatForeignTaxId20, FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
   implements ExpressionExtractorInterface
 {

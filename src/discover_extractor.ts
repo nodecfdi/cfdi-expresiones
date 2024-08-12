@@ -1,12 +1,12 @@
-import { UnmatchedDocumentError } from './errors.js';
-import { Comprobante32 } from './extractors/comprobante32.js';
-import { Comprobante33 } from './extractors/comprobante33.js';
-import { Comprobante40 } from './extractors/comprobante40.js';
-import { Retenciones10 } from './extractors/retenciones10.js';
-import { Retenciones20 } from './extractors/retenciones20.js';
-import { type ExpressionExtractorInterface } from './types.js';
+import { UnmatchedDocumentError } from '#src/errors';
+import Comprobante32 from '#src/extractors/comprobante32';
+import Comprobante33 from '#src/extractors/comprobante33';
+import Comprobante40 from '#src/extractors/comprobante40';
+import Retenciones10 from '#src/extractors/retenciones10';
+import Retenciones20 from '#src/extractors/retenciones20';
+import { type ExpressionExtractorInterface } from '#src/types';
 
-export class DiscoverExtractor implements ExpressionExtractorInterface {
+export default class DiscoverExtractor implements ExpressionExtractorInterface {
   private readonly _expressions: ExpressionExtractorInterface[];
 
   public constructor(...expressions: ExpressionExtractorInterface[]) {

@@ -1,6 +1,6 @@
 import { encode, EncodingMode } from 'entities';
 
-export class FormatForeignTaxId20 {
+export default class FormatForeignTaxId20 {
   public formatForeignTaxId(foreignTaxId: string): string {
     // Codificar
     let foreignTaxIdResult = encode(foreignTaxId, { mode: EncodingMode.UTF8 });

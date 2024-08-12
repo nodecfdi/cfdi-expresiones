@@ -1,14 +1,14 @@
 import { Mixin } from 'ts-mixer';
-import { AttributeNotFoundError, UnmatchedDocumentError } from '../errors.js';
-import { DomHelper } from '../internal/dom_helper.js';
-import { MatchDetector } from '../internal/match_detector.js';
-import { type ExpressionExtractorInterface } from '../types.js';
-import { retencionesNodeName } from '../utils/constants.js';
-import { FormatForeignTaxId20 } from './standards/format_foreign_tax_id20.js';
-import { FormatRfcXml } from './standards/format_rfc_xml.js';
-import { FormatTotal10x6 } from './standards/format_total10x6.js';
+import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
+import FormatForeignTaxId20 from '#src/extractors/standards/format_foreign_tax_id20';
+import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
+import FormatTotal10x6 from '#src/extractors/standards/format_total10x6';
+import DomHelper from '#src/internal/dom_helper';
+import MatchDetector from '#src/internal/match_detector';
+import { type ExpressionExtractorInterface } from '#src/types';
+import { retencionesNodeName } from '#src/utils/constants';
 
-export class Retenciones10
+export default class Retenciones10
   extends Mixin(FormatForeignTaxId20, FormatRfcXml, FormatTotal10x6)
   implements ExpressionExtractorInterface
 {

@@ -1,6 +1,6 @@
-import { AttributeNotFoundError, ElementNotFoundError } from '../errors.js';
+import { AttributeNotFoundError, ElementNotFoundError } from '#src/errors';
 
-export class DomHelper {
+export default class DomHelper {
   private readonly _document?: Document;
 
   public constructor(document: Document) {

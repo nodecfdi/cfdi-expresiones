@@ -1,6 +1,6 @@
-import { UnmatchedDocumentError } from '../errors.js';
+import { UnmatchedDocumentError } from '#src/errors';
 
-export class MatchDetector {
+export default class MatchDetector {
   public constructor(
     public namespaceUri: string,
     public elementName: string,

@@ -1,18 +1,18 @@
 import { Mixin } from 'ts-mixer';
-import { UnmatchedDocumentError } from '../../errors.js';
-import { DomHelper } from '../../internal/dom_helper.js';
-import { type MatchDetector } from '../../internal/match_detector.js';
-import { type ExpressionExtractorInterface } from '../../types.js';
-import { cfdiNodeName } from '../../utils/constants.js';
-import { FormatRfcXml } from './format_rfc_xml.js';
-import { FormatSelloLast8 } from './format_sello_last8.js';
-import { FormatTotal18x6 } from './format_total18x6.js';
+import { UnmatchedDocumentError } from '#src/errors';
+import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
+import FormatSelloLast8 from '#src/extractors/standards/format_sello_last8';
+import FormatTotal18x6 from '#src/extractors/standards/format_total18x6';
+import DomHelper from '#src/internal/dom_helper';
+import type MatchDetector from '#src/internal/match_detector';
+import { type ExpressionExtractorInterface } from '#src/types';
+import { cfdiNodeName } from '#src/utils/constants';
 
 /**
  * Especificación técnica del código de barras bidimensional a incorporar en la representación impresa.
  * Esta versión se utiliza desde CFDI 3.3 vigente a partir de 2017-07-01.
  */
-export abstract class Comprobante20170701
+export default abstract class Comprobante20170701
   extends Mixin(FormatRfcXml, FormatTotal18x6, FormatSelloLast8)
   implements ExpressionExtractorInterface
 {
