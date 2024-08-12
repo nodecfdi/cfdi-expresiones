@@ -1,6 +1,6 @@
 {
   "name": "@nodecfdi/cfdi-expresiones",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Librería que contiene objetos de ayuda para crear expresiones de CFDI 3.2, CFDI 3.3, CFDI 4.0, RET 2.0 y RET 1.0 de acuerdo a la información técnica del SAT en el Anexo 20.",
   "type": "module",
   "main": "./dist/commonjs/index.js",
@@ -12,36 +12,30 @@
   "exports": {
     ".": {
       "import": {
-        "source": "./src/index.ts",
         "types": "./dist/esm/index.d.ts",
         "default": "./dist/esm/index.js"
       },
       "require": {
-        "source": "./src/index.ts",
         "types": "./dist/commonjs/index.d.ts",
         "default": "./dist/commonjs/index.js"
       }
     },
     "./types": {
       "import": {
-        "source": "./src/types.ts",
         "types": "./dist/esm/types.d.ts",
         "default": "./dist/esm/types.js"
       },
       "require": {
-        "source": "./src/types.ts",
         "types": "./dist/commonjs/types.d.ts",
         "default": "./dist/commonjs/types.js"
       }
     },
     "./errors": {
       "import": {
-        "source": "./src/errors.ts",
         "types": "./dist/esm/errors.d.ts",
         "default": "./dist/esm/errors.js"
       },
       "require": {
-        "source": "./src/errors.ts",
         "types": "./dist/commonjs/errors.d.ts",
         "default": "./dist/commonjs/errors.js"
       }
