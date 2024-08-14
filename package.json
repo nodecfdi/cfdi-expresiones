@@ -92,7 +92,7 @@
     "ts-mixer": "^6.0.4"
   },
   "peerDependencies": {
-    "@nodecfdi/cfdi-core": "^0.4.3"
+    "@nodecfdi/cfdi-core": ">=0.4.3"
   },
   "author": "Fernando Isidro <luffynando@gmail.com>",
   "license": "MIT",
@@ -127,7 +127,7 @@
     ]
   },
   "prettier": "@nodecfdi/prettier-config",
-  "packageManager": "pnpm@9.7.0",
+  "packageManager": "pnpm@9.7.1",
   "publishConfig": {
     "access": "public",
     "tag": "latest"
