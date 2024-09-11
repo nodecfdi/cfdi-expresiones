@@ -96,7 +96,7 @@ The `@nodecfdi/cfdi-expresiones` library is copyright © [NodeCfdi](https://gith
 [badge-discord]: https://img.shields.io/discord/459860554090283019?logo=discord
 [badge-release]: https://img.shields.io/npm/v/@nodecfdi/cfdi-expresiones.svg?logo=npm
 [badge-license]: https://img.shields.io/github/license/nodecfdi/cfdi-expresiones.svg?logo=open-source-initiative
-[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-expresiones/build.yml?branch=main
+[badge-build]: https://img.shields.io/github/actions/workflow/status/nodecfdi/cfdi-expresiones/build.yml?branch=main&logo=github-actions
 [badge-reliability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-expresiones&metric=reliability_rating
 [badge-maintainability]: https://sonarcloud.io/api/project_badges/measure?project=nodecfdi_cfdi-expresiones&metric=sqale_rating
 [badge-coverage]: https://img.shields.io/sonar/coverage/nodecfdi_cfdi-expresiones/main?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io
