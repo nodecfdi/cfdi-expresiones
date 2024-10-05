@@ -5,10 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [v3.0.3](https://luffynando.github.com/nodecfdi/cfdi-expresiones/compare/v3.0.2...v3.0.3)
+## [v3.0.4](https://luffynando.github.com/nodecfdi/cfdi-expresiones/compare/v3.0.3...v3.0.4)
 
 ### Commits
 
+- chore: :arrow_up: update dependencies and remove dom support for better nodejs integration [`d0ab3a8`](https://luffynando.github.com/nodecfdi/cfdi-expresiones/commit/d0ab3a80bffa7855281cbfda4803b19343be75a1)
+- refactor: :recycle: apply all usage of types provide by cfdi-core for dom support [`f0a6bf4`](https://luffynando.github.com/nodecfdi/cfdi-expresiones/commit/f0a6bf49db0f305df2cbd687b491a88040cc0252)
+
+## [v3.0.3](https://luffynando.github.com/nodecfdi/cfdi-expresiones/compare/v3.0.2...v3.0.3) - 2024-09-11
+
+### Commits
+
+- chore(release): :tada: 3.0.3 [`97ef474`](https://luffynando.github.com/nodecfdi/cfdi-expresiones/commit/97ef4742434a6555ac7437d6d7c7f2395db12fe4)
 - chore: :arrow_up: update dependencies, eslint config and changelog generator [`b3a621b`](https://luffynando.github.com/nodecfdi/cfdi-expresiones/commit/b3a621be5a7b58ee5e527b062672dcc6d6197a8b)
 - docs: :memo: update readme badge build [`991dac5`](https://luffynando.github.com/nodecfdi/cfdi-expresiones/commit/991dac5b4d50dd7297ff2164134fec9fa58dec02)
 
