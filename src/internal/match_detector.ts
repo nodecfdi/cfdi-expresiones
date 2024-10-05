@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { UnmatchedDocumentError } from '#src/errors';
 
 export default class MatchDetector {

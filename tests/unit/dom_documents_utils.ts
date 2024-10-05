@@ -1,4 +1,4 @@
-import { newDocumentContent } from '@nodecfdi/cfdi-core';
+import { type Document, newDocumentContent } from '@nodecfdi/cfdi-core';
 import { fileContentPath } from '../test_utils.js';
 
 export const documentCfdi40 = (): Document =>

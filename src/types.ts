@@ -1,3 +1,5 @@
+import { type Document } from '@nodecfdi/cfdi-core';
+
 export interface ExpressionExtractorInterface {
   /**
    * Extractor (implementor) unique name

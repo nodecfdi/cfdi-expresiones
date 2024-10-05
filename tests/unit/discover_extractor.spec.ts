@@ -1,4 +1,4 @@
-import { newDocument } from '@nodecfdi/cfdi-core';
+import { type Document, newDocument } from '@nodecfdi/cfdi-core';
 import DiscoverExtractor from '#src/discover_extractor';
 import { UnmatchedDocumentError } from '#src/errors';
 import Comprobante32 from '#src/extractors/comprobante32';

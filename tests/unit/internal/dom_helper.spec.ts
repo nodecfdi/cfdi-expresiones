@@ -1,4 +1,4 @@
-import { newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
+import { type Document, newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
 import { AttributeNotFoundError, ElementNotFoundError } from '#src/errors';
 import DomHelper from '#src/internal/dom_helper';
 import { fileContentPath } from '../../test_utils.js';

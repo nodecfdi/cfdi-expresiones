@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
 import FormatForeignTaxId20 from '#src/extractors/standards/format_foreign_tax_id20';

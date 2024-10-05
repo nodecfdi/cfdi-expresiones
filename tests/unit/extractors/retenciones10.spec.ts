@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { AttributeNotFoundError, UnmatchedDocumentError } from '#src/errors';
 import Retenciones10 from '#src/extractors/retenciones10';
 import {

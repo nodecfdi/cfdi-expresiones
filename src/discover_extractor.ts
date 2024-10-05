@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { UnmatchedDocumentError } from '#src/errors';
 import Comprobante32 from '#src/extractors/comprobante32';
 import Comprobante33 from '#src/extractors/comprobante33';

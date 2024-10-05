@@ -1,4 +1,4 @@
-import { newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
+import { type Document, newDocument, newDocumentContent } from '@nodecfdi/cfdi-core';
 import { UnmatchedDocumentError } from '#src/errors';
 import MatchDetector from '#src/internal/match_detector';
 import { fileContentPath } from '../../test_utils.js';

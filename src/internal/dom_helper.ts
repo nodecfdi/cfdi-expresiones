@@ -1,3 +1,4 @@
+import { type Document, type Element } from '@nodecfdi/cfdi-core';
 import { AttributeNotFoundError, ElementNotFoundError } from '#src/errors';
 
 export default class DomHelper {

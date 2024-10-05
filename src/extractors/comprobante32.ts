@@ -1,3 +1,4 @@
+import { type Document } from '@nodecfdi/cfdi-core';
 import { Mixin } from 'ts-mixer';
 import { UnmatchedDocumentError } from '#src/errors';
 import FormatRfcXml from '#src/extractors/standards/format_rfc_xml';
